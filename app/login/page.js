@@ -1,9 +1,7 @@
-import Image from "next/image";
 import bg from "@/public/homeBackGround.png";
-import Form from "../_components/Form";
-import Input from "../_components/Input";
+import Image from "next/image";
 import Button from "../_components/Button";
-import Link from "next/link";
+import FormLogin from "../_components/FormLogin";
 
 function page() {
   return (
@@ -16,20 +14,7 @@ function page() {
         alt="home background"
         src={bg}
       />
-      <Form>
-        <div className="text-center space-y-3">
-          <h2 className=" text-2xl sm:text-4xl font-medium">Log in</h2>
-          <p className="text-sm sm:text-base">
-            Don’t have an ccount?{" "}
-            <Link href="/form" className="text-main underline">
-              Fill out the form please{" "}
-            </Link>{" "}
-          </p>
-        </div>
-        <Input label="your email" type="email" />
-        <Input label="Your password" type="password" />
-        <Button className="w-full">Login</Button>
-      </Form>
+      <FormLogin />
     </div>
   );
 }

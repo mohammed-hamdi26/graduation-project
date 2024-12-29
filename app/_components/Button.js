@@ -1,12 +1,17 @@
-function Button({ children, onClick, className = "" }) {
+"use client";
+import { motion } from "motion/react";
+
+function Button({ children, onClick, className = "", disabled }) {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className={`${className} +
-        bg-main px-4 py-3 rounded-full text-lg font-bold text-white  uppercase`}
+      className={` 
+        bg-main px-4 py-3 rounded-full text-lg font-bold text-white  uppercase disabled:bg-gray-400 disabled:cursor-not-allowed ${className}`}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }
 

@@ -1,4 +1,13 @@
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
 import "./_styles/globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: {
@@ -9,11 +18,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const poppinsClass = poppins.className;
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={false}>
       <body>
+        <Toaster position="bottom-right" />
         <div className="flex flex-col h-dvh">
-          <main className="flex-1 ">{children}</main>
+          <main className="flex-1 h-full  ">{children}</main>
         </div>
       </body>
     </html>

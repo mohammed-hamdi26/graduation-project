@@ -1,17 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import bg from "@/public/homeBackGround.png";
+import WelcomePageBackground from "./_components/WelcomePageBackground";
 export default function Home() {
   return (
     <div className="relative  flex justify-center items-center h-full text-white ">
       <div className="-z-10 absolute top-0 left-0 w-full h-full bg-black bg-opacity-65"></div>
-      <Image
-        fill
-        className="-z-20  object-cover object-top"
-        placeholder="blur"
-        alt="home background"
-        src={bg}
-      />
+      <WelcomePageBackground />
       <div className="flex flex-col items-center text-center w-3/4 space-y-3 mt-4">
         <h1 className="text-lg md:text-5xl font-bold">
           Welcome to medical – Your First Step Toward Better Health!

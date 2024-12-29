@@ -2,9 +2,11 @@ import NavBar from "../_components/NavBar";
 
 export default function layout({ children }) {
   return (
-    <div className="h-full grid grid-cols-[25rem_1fr]">
+    <div className="h-full flex-1 grid grid-cols-[auto_1fr] ">
       <NavBar />
-      <div className="bg-background p-8">{children}</div>
+      <div className="bg-background h-full p-8  overflow-x-hidden ">
+        {children}
+      </div>
     </div>
   );
 }
