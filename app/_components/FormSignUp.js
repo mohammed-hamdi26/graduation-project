@@ -8,11 +8,25 @@ import { useForm } from "react-hook-form";
 import { addUser } from "../_lib/actions";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 
 function FormSignUp() {
+  const [formValues, setFormValues] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    age: "",
+    phone: "",
+  });
   const [state, action, pending] = useActionState(addUser, undefined);
-  console.log(state);
+
+  function handleChange(e) {
+    setFormValues((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
   // const { register, handleSubmit, formState } = useForm();
   // const { errors } = formState;
 
@@ -42,69 +56,66 @@ function FormSignUp() {
       </div>
       <FormRow>
         <Input
+          value={formValues.first_name}
+          onChange={handleChange}
           label="First Name"
           type="text"
-          error={state?.errors?.first_name[0]}
+          name={"first_name"}
+          error={state?.errors?.first_name ?? null}
+          disabled={pending}
         />
         <Input
+          value={formValues.last_name}
+          onChange={handleChange}
           label="Last Name"
           type="text"
-          error={state?.errors?.last_name[0]}
+          name={"last_name"}
+          error={state?.errors?.last_name ?? null}
+          disabled={pending}
         />
       </FormRow>
       <FormRow>
         <Input
+          value={formValues.email}
+          onChange={handleChange}
           label="your email"
           type="email"
-          // register={register("email", {
-          //   required: "the field is requeried",
-          //   pattern: {
-          //     message: "the pattern not matched",
-          //     value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-          //   },
-          // })}
-          error={state.errors?.email?.message}
+          name={"email"}
+          error={state?.errors?.email ?? null}
+          disabled={pending}
         />
         <Input
+          value={formValues.password}
+          onChange={handleChange}
           label="National ID"
           type="text"
-          // register={register("password", {
-          //   required: "the field is requeried",
-          //   pattern: {
-          //     message: "the pattern not matched",
-          //     value: /^\d{14}$/,
-          //   },
-          // })}
-          // error={state.errors?.password?.message}
+          name={"password"}
+          error={state?.errors?.password ?? null}
+          disabled={pending}
         />
       </FormRow>
       <FormRow>
         <Input
+          value={formValues.age}
+          onChange={handleChange}
+          name={"age"}
           label="age"
-          // register={register("age", {
-          //   required: "the field is requeried",
-          //   pattern: {
-          //     message: "the pattern not matched",
-          //     value: /^(?:[1-9]?[0-9]|1[0-4][0-9]|150)$/,
-          //   },
-          // })}
-          // error={state.errors?.age?.message}
+          error={state?.errors?.age ?? null}
+          disabled={pending}
         />
         <Input
+          name={"chronic_disease"}
           label="Choronic disease"
-          // register={register("chronic_disease")}
+          disabled={pending}
         />
       </FormRow>
       <Input
+        value={formValues.phone}
+        onChange={handleChange}
         label="phone"
-        // register={register("phone", {
-        //   required: "the field is requeried",
-        //   pattern: {
-        //     message: "the pattern not matched",
-        //     value: /^\d{11}$/,
-        //   },
-        // })}
-        // error={state.errors?.phone?.message}
+        name={"phone"}
+        error={state?.errors?.phone ?? null}
+        disabled={pending}
       />
       <div className="flex items-center justify-between">
         <Link href="/login" className="underline text-lg ">

@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 import FormRow from "./FormRow";
 import UpdateFormInput from "./UpdateFormInput";
 import UpadteFormInput from "./UpdateFormInput";
 
-function UpdateProfile() {
+function UpdateProfile({ user }) {
   const [disabled, setDisabled] = useState(true);
   return (
     <form
@@ -17,25 +17,25 @@ function UpdateProfile() {
         <UpadteFormInput
           disabled={disabled}
           label={"First name"}
-          value={"mohammed"}
+          value={user.first_name}
         />
         <UpadteFormInput
           disabled={disabled}
           label={"Last name"}
-          value={"mohammed"}
+          value={user.last_name}
         />
       </FormRow>
       <FormRow>
         <UpdateFormInput
           disabled={disabled}
           label={"email"}
-          value={"mohammed@test.com"}
+          value={user.email}
           type="email"
         />
         <UpdateFormInput
           disabled={disabled}
           label={"Phone number"}
-          value={"01095098769"}
+          value={user.phone}
         />
       </FormRow>
       <div className="flex justify-end gap-3 mt-3">

@@ -4,6 +4,8 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 
 import { SignupFormSchema } from "./definitions";
+import toast from "react-hot-toast";
+import { createSession } from "./session";
 
 export async function uploadPhoto(data) {
   try {
@@ -37,33 +39,39 @@ export async function login(formData) {
 
 export async function addUser(state, formData) {
   // Validate form fields
+
   const validatedFields = SignupFormSchema.safeParse({
     first_name: formData.get("first_name"),
     last_name: formData.get("last_name"),
+    full_name: `${formData.get("first_name")} ${formData.get("last_name")}`,
+    email: formData.get("email"),
     password: formData.get("password"),
-    age: formData.get("age"),
+    age: Number(formData.get("age")),
     phone: formData.get("phone"),
   });
 
   if (!validatedFields.success) {
-    // const errorMessage = validatedFields.error.flatten().fieldErrors;
-
     return {
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  // console.log({ ...data, active: true, staff: false, admin: false });
-  // try {
-  //   const res = await axios.post(`${process.env.APi_URL}/users-list/`, {
-  //     ...data,
-  //     active: true,
-  //     staff: false,
-  //     admin: false,
-  //   });
+  try {
+    const res = await axios.post(`${process.env.APi_URL}/users-list/`, {
+      ...validatedFields.data,
+      active: true,
+      staff: false,
+      admin: false,
+    });
 
-  //   return res;
-  // } catch (e) {
-  //   console.log(e.message);
-  // }
+    const user = res.data;
+
+    // Current steps:
+    // 4. Create user session
+    await createSession(user.id);
+  } catch (err) {
+    console.log(err.response);
+    return;
+  }
+  redirect("/dashboard");
 }

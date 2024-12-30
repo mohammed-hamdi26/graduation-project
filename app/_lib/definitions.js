@@ -20,7 +20,7 @@ export const SignupFormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
     .string()
-    .length(15, { message: "Must Be  15 characters long" })
+    .length(14, { message: "Must Be  14 characters long" })
     .regex(/[0-9]+/, { message: "Must Contain Numbers ." })
     .trim(),
   phone: z

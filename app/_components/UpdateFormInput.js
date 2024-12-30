@@ -4,7 +4,7 @@ function UpdateFormInput({ label, value, type = "text", disabled }) {
       <label>{label}</label>
       <input
         disabled={disabled}
-        value={value}
+        defaultValue={value}
         className="border border-[#BCC1CA] px-2 py-2 rounded-lg  focus:outline-second-main disabled:bg-gray-200 "
         type={type}
       />
