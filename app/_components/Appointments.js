@@ -1,14 +1,17 @@
+import { getBookedAppointmentsForPatient } from "../_lib/data-service";
 import AppointmentItem from "./AppointmentItem";
 
-function Appointments() {
+async function Appointments({ userID }) {
+  const appointments = await getBookedAppointmentsForPatient(userID);
+
   return (
     <div
       className="space-y-4 w-80 
    h-full"
     >
-      <AppointmentItem day={10} nameDoctor={"Dr Cameron"} dayOfWeak={"Mon"} />
-      <AppointmentItem day={10} nameDoctor={"Dr Cameron"} dayOfWeak={"Mon"} />
-      <AppointmentItem day={10} nameDoctor={"Dr Cameron"} dayOfWeak={"Mon"} />
+      {appointments.map((appointment) => (
+        <AppointmentItem key={appointment.id} appointment={appointment} />
+      ))}
     </div>
   );
 }

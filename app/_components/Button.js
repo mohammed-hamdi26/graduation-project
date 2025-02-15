@@ -7,8 +7,9 @@ function Button({ children, onClick, className = "", disabled }) {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
+      disabled={disabled}
       className={` 
-        bg-main px-4 py-3 rounded-full text-lg font-bold text-white  uppercase disabled:bg-gray-400 disabled:cursor-not-allowed ${className}`}
+        bg-second-main px-4 py-3 rounded-full text-lg font-bold text-white  uppercase disabled:bg-gray-400 disabled:cursor-not-allowed ${className}`}
     >
       {children}
     </motion.button>

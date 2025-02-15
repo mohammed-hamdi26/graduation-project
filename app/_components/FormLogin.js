@@ -9,8 +9,11 @@ import { login } from "../_lib/actions";
 import toast from "react-hot-toast";
 import { useFormStatus } from "react-dom";
 import { redirect } from "next/navigation";
+import { useState } from "react";
+import Spinner from "./Spinner";
 
 function FormLogin() {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     formState: { errors },
     register,
@@ -20,25 +23,31 @@ function FormLogin() {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
+        setIsLoading(true);
         const res = await login(data);
-        if (res) redirect("/dashboard");
+        setIsLoading(false);
+        if (res) {
+          toast.success("success login");
+          redirect("/dashboard");
+        }
       })}
       className="bg-white  px-9 py-12 rounded-3xl w-full md:w-2/5 space-y-6"
     >
       <div className="text-center space-y-3">
-        <h2 className=" text-2xl sm:text-4xl font-medium">Log in</h2>
+        <h2 className=" text-2xl sm:text-5xl font-bold">Log in</h2>
         <p className="text-sm sm:text-base">
           Don’t have an ccount?{" "}
-          <Link href="/form" className="text-main underline">
+          <Link href="/form" className="text-second-main underline">
             Fill out the form please{" "}
           </Link>{" "}
         </p>
       </div>
       <Input
+        disabled={isLoading}
         label="your email"
         type="text"
-        error={errors?.name?.message}
-        register={register("name", {
+        error={errors?.email?.message}
+        register={register("email", {
           required: "the field is requeried",
           // pattern: {
           //   message: "the pattern not matched",
@@ -47,10 +56,11 @@ function FormLogin() {
         })}
       />
       <Input
+        disabled={isLoading}
         label="Your password"
         type="password"
-        error={errors?.national_id?.message}
-        register={register("national_id", {
+        error={errors?.password?.message}
+        register={register("password", {
           // pattern: {
           //   message: "the password not match rules",
           //   value:
@@ -63,19 +73,11 @@ function FormLogin() {
           },
         })}
       />
-      <ButtonForm className="w-full">Login</ButtonForm>
+      <Button className="w-full py-4" disabled={isLoading}>
+        {" "}
+        {isLoading ? <Spinner /> : "Login"}
+      </Button>
     </form>
-  );
-}
-
-function ButtonForm() {
-  const { pending } = useFormStatus();
-  console.log(pending);
-  return (
-    <Button className="w-full" disabled={pending}>
-      {" "}
-      {pending ? "loading..." : "Login"}{" "}
-    </Button>
   );
 }
 

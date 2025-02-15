@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { FaHistory } from "react-icons/fa";
+import { FaHistory, FaRegUser } from "react-icons/fa";
 import { FaUserCheck, FaUserDoctor } from "react-icons/fa6";
 import { HiOutlineHome } from "react-icons/hi2";
 import { IoIosArrowBack, IoIosArrowForward, IoMdAlarm } from "react-icons/io";
@@ -15,21 +15,31 @@ const navLinks = [
     name: "home",
     href: "/dashboard/home",
     icon: <HiOutlineHome className="h-6 w-6" />,
+    typePath: "both",
   },
   {
     name: "doctors",
     href: "/dashboard/doctors",
     icon: <FaUserDoctor className="h-6 w-6" />,
+    typePath: "patient",
+  },
+  {
+    name: "patients",
+    href: "/dashboard/patients",
+    icon: <FaRegUser className="h-6 w-6" />,
+    typePath: "doctor",
   },
   {
     name: "medical history",
     href: "/dashboard/medical-history",
     icon: <FaHistory className="h-6 w-6" />,
+    typePath: "both",
   },
   {
     name: "check yourself",
     href: "/dashboard/check-yourself",
     icon: <FaUserCheck className="h-6 w-6" />,
+    typePath: "both",
   },
   {
     name: "result",
@@ -40,10 +50,11 @@ const navLinks = [
     name: "Medication reminder",
     href: "/dashboard/medication-reminder",
     icon: <IoMdAlarm className="h-6 w-6" />,
+    typePath: "patient",
   },
 ];
 
-function NavBar({ children }) {
+function NavBar({ children, user }) {
   const path = usePathname();
   const [isNavOpen, setIsNavOpen] = useState(true);
   const navVariants = {
@@ -58,16 +69,23 @@ function NavBar({ children }) {
       transition: { duration: 0.5 },
     },
   };
+
+  const filteredNavLinks = user?.staff
+    ? navLinks.filter(
+        (link) => link.typePath === "both" || link.typePath === "doctor"
+      )
+    : navLinks.filter(
+        (link) => link.typePath === "both" || link.typePath === "patient"
+      );
   return (
     <motion.nav
       variants={navVariants}
       animate={isNavOpen ? "open" : "closed"}
-      // animate={{ width: isNavOpen ? "fit-content" : "fit-content" }}
       className={`relative  h-full bg-white  space-y-4 transition flex flex-col  `}
     >
       {/* <NavLogo /> */}
       <ul className="space-y-2 flex-1 pt-6 px-4">
-        {navLinks.map((link) => (
+        {filteredNavLinks.map((link) => (
           <NavItem
             path={path}
             key={link.name}

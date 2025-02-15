@@ -20,7 +20,7 @@ function Input({
         className="border border-[#666666] border-opacity-40 rounded-xl px-2 py-3 w-full"
         type={type}
       />
-      {error && <p className="text-red-600">{error[0]}</p>}
+      {error && <p className="text-red-600">{error}</p>}
     </div>
   );
 }

@@ -1,21 +1,26 @@
 import Image from "next/image";
 import dcImage from "@/public/mohammed2.png";
 import Calender from "@/app/_components/Calender";
-import { getDoctor } from "@/app/_lib/data-service";
+import {
+  getBookedAppointmentsForDoctor,
+  getDoctor,
+  getDoctorAvailability,
+  getUser,
+} from "@/app/_lib/data-service";
+import { get } from "axios";
 export default async function page({ params }) {
   const { doctorId } = await params;
   const doctor = await getDoctor(doctorId);
+  const calanderAvailability = await getDoctorAvailability(doctor.id);
+  const user = await getUser();
+
+  const bookedAppointments = await getBookedAppointmentsForDoctor(doctor.id);
   return (
     <div className="space-y-8">
-      {/* <h2 className="text-second-main text-2xl capitalize">
-        <span className="text-4xl font-bold">
-          Dr {doctor.first_name} {doctor.last_name}{" "}
-        </span>{" "}
-      </h2> */}
       <div className="flex gap-6">
         <div className="w-[333px] h-[519px] relative">
           <Image
-            src={`${process.env.APi_URL}${doctor.img}`}
+            src={doctor.img ? `${process.env.APi_URL}${doctor.img}` : ""}
             fill
             className="object-cover rounded-lg"
             alt=""
@@ -31,7 +36,12 @@ export default async function page({ params }) {
           </p>
           <p className="text-xl text-[#BBBBBB] ">{doctor.bio}</p>
         </div>
-        <Calender />
+        <Calender
+          bookedAppointments={bookedAppointments}
+          userID={user.id}
+          docID={doctor.id}
+          availability={calanderAvailability[0]}
+        />
       </div>
     </div>
   );

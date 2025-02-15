@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 function DoctorItem({ srcImage, doctorName, id, to }) {
-  const doctorHref = to ? to : `/dashboard/doctors/${id}`;
+  const doctorHref = to ? `${to}/${id}` : `/dashboard/doctors/${id}`;
   return (
     <Link href={doctorHref}>
       <motion.div

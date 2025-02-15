@@ -1,7 +1,9 @@
+import { SyncLoader } from "react-spinners";
+
 function Spinner() {
   return (
-    <div className="w-full flex justify-center items-center text-5xl">
-      loading...
+    <div>
+      <SyncLoader color="#fff " />
     </div>
   );
 }

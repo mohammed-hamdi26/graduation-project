@@ -1,18 +1,21 @@
+import { getDoctor } from "../_lib/data-service";
 import DateBox from "./DateBox";
 
-function AppointmentItem({
-  day,
-  dayOfWeak,
-  nameDoctor,
-  startAppointment,
-  endAppointment,
-}) {
+async function AppointmentItem({ appointment }) {
+  const bookedDate = new Date(appointment.date);
+  const day = bookedDate.getDate();
+  const dayOfWeak = bookedDate.toLocaleDateString("en-US", {
+    weekday: "short",
+  });
+  const doctor = await getDoctor(3);
   return (
     <div className="flex gap-3">
       <DateBox dayOfWeak={dayOfWeak} day={day} />
       <div>
-        <p className="text-white">{nameDoctor}</p>
-        <p className="text-[#E5E5E5]">9:00 am - 11:30 am</p>
+        <p className="text-white">
+          Dr. {doctor.doc_first_name} {doctor.doc_last_name}
+        </p>
+        <p className="text-[#E5E5E5]">{appointment.time}</p>
       </div>
     </div>
   );

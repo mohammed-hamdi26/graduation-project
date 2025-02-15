@@ -12,10 +12,10 @@ function DateBox({
     <motion.div
       whileTap={{ scale: 0.9 }}
       onClick={onClick}
-      className={`${backGroundColor} ${textColor} flex flex-col items-center rounded-md px-2 py-1 cursor-pointer `}
+      className={`${backGroundColor} ${textColor} flex flex-col items-center rounded-md px-2 py-1  cursor-pointer w-12 `}
     >
       <span className="font-bold capitalize">{dayOfWeak}</span>
-      <span className="font-medium">{day}</span>
+      <span className="font-bold">{day}</span>
     </motion.div>
   );
 }

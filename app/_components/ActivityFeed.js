@@ -9,16 +9,6 @@ async function ActivityFeed() {
       {activityFeeds.map((activityFeed) => (
         <ActivityFeedItem activityFeed={activityFeed} key={activityFeed.id} />
       ))}
-      {/* <ActivityFeedItem
-        srcImage={img}
-        message={"You have been given medication of heart burn"}
-        time={"10 mins ago"}
-      />
-      <ActivityFeedItem
-        srcImage={dcImage}
-        message={"You have been given medication of heart burn"}
-        time={"10 mins ago"}
-      /> */}
     </div>
   );
 }

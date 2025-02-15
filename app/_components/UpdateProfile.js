@@ -3,39 +3,46 @@ import { use, useState } from "react";
 import FormRow from "./FormRow";
 import UpdateFormInput from "./UpdateFormInput";
 import UpadteFormInput from "./UpdateFormInput";
+import { Controller, useForm } from "react-hook-form";
+import { editUser } from "../_lib/actions";
 
 function UpdateProfile({ user }) {
   const [disabled, setDisabled] = useState(true);
+
+  const { handleSubmit, formState, register, control } = useForm({
+    disabled,
+  });
+
+  async function submit(data) {
+    const updatedData = { ...data, password: user.password };
+    setDisabled(true);
+    const res = await editUser(updatedData);
+
+    setDisabled(false);
+  }
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      className="pt-4    "
-    >
+    <form onSubmit={handleSubmit(submit)} className="pt-4    ">
       <FormRow>
         <UpadteFormInput
           disabled={disabled}
           label={"First name"}
           value={user.first_name}
+          register={register("first_name")}
         />
+
         <UpadteFormInput
           disabled={disabled}
           label={"Last name"}
           value={user.last_name}
+          register={register("last_name")}
         />
       </FormRow>
       <FormRow>
         <UpdateFormInput
           disabled={disabled}
-          label={"email"}
-          value={user.email}
-          type="email"
-        />
-        <UpdateFormInput
-          disabled={disabled}
           label={"Phone number"}
           value={user.phone}
+          register={register("phone")}
         />
       </FormRow>
       <div className="flex justify-end gap-3 mt-3">
@@ -50,7 +57,10 @@ function UpdateProfile({ user }) {
           </button>
         ) : (
           <>
-            <button className="bg-second-main p-2 px-4 rounded-full text-white">
+            <button
+              type="submit"
+              className="bg-second-main p-2 px-4 rounded-full text-white"
+            >
               update data
             </button>
             <button

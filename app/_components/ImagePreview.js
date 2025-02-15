@@ -7,12 +7,14 @@ import UploadImage from "./UploadImage";
 import TheUploadedImage from "./TheUploadedImage";
 import ResultModal from "./ResultModal";
 
-import { uploadPhoto } from "../_lib/actions";
+import { checkModel, uploadPhoto, useModel } from "../_lib/actions";
 import toast from "react-hot-toast";
+import { set } from "date-fns";
 
 function ImagePreview() {
   const [image, setImage] = useState(null);
   const [isImageChecked, setIsImageChecked] = useState(false);
+  const [predict, setPredict] = useState({});
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -22,13 +24,19 @@ function ImagePreview() {
 
   async function checkImage() {
     const formData = new FormData();
-    formData.append("photo", image);
-    formData.append("uploader", 1);
+    // formData.append("photo", image);
+    // formData.append("uploader", 1);
+    formData.append("image", image);
+    // formData.append("uploader", 1);
     try {
-      await uploadPhoto(formData);
+      // await uploadPhoto(formData);
+      const predict = await checkModel(formData);
       setIsImageChecked(true);
+      setPredict(predict);
+
       toast.success("the image uploaded");
     } catch (e) {
+      console.log(e);
       toast.error("there error in upload image");
     }
   }
@@ -43,8 +51,8 @@ function ImagePreview() {
         {image && isImageChecked ? (
           <ResultModal
             image={image}
-            typeCancer={"The Cancer Is Malignant"}
-            confidenceScore={90}
+            typeCancer={predict?.predicted_label}
+            confidenceScore={Number(predict.confidence).toFixed(2)}
           />
         ) : (
           image && (

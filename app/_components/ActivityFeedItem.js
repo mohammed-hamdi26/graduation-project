@@ -4,7 +4,7 @@ import { getDoctor } from "../_lib/data-service";
 async function ActivityFeedItem({ activityFeed }) {
   const { msg, updated } = activityFeed;
   // const { img } = await getDoctor(activityFeed.doctor);
-  // console.log(img);
+
   return (
     <div className="flex items-center gap-4">
       <div className="relative w-12 h-12">
