@@ -19,16 +19,16 @@ export default function Home() {
         </p>
         <div className=" flex flex-col sm:flex-row items-center gap-6">
           <Link
-            className=" w-40 bg-main px-2 py-2 rounded-full text-lg font-bold"
+            className=" min-w-40 bg-main p-4 rounded-full text-2xl font-bold"
             href="/login"
           >
             login
           </Link>
           <Link
-            className=" w-40 bg-main px-2 py-2 rounded-full text-lg font-bold"
-            href="/form"
+            className=" min-w-40 bg-main p-4  rounded-full text-2xl font-bold"
+            href="/modals"
           >
-            Form
+            check yourself
           </Link>
         </div>
       </div>

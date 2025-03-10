@@ -14,7 +14,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #608bc1;
+  background: #432c81;
 
   transition: background 0.5s linear;
 }

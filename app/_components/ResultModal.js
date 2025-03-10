@@ -2,7 +2,13 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 
-function ResultModal({ typeCancer, confidenceScore, image }) {
+function ResultModal({
+  typeCancer,
+  confidenceScore,
+  image,
+  checkAgain,
+  uploadPhoto,
+}) {
   return (
     <motion.div
       initial={{ scale: 0 }}
@@ -27,6 +33,20 @@ function ResultModal({ typeCancer, confidenceScore, image }) {
         <p className="bg-second-main bg-opacity-50 p-2 rounded-md">
           Confidence Score : {confidenceScore}
         </p>
+      </div>
+      <div className="flex justify-between text-2xl font-bold ">
+        <button
+          className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500"
+          onClick={checkAgain}
+        >
+          check another image
+        </button>
+        <button
+          className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500"
+          onClick={uploadPhoto}
+        >
+          save the result
+        </button>
       </div>
     </motion.div>
   );

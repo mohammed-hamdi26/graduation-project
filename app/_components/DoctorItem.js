@@ -10,7 +10,7 @@ function DoctorItem({ srcImage, doctorName, id, to }) {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className="cursor-pointer rounded-lg group relative h-[32rem] overflow-hidden transition duration-700  hover:scale-110"
+        className="cursor-pointer rounded-lg group relative h-80 md:h-[32rem] overflow-hidden transition duration-700  hover:scale-110"
       >
         <div>
           <Image

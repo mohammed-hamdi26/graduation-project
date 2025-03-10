@@ -1,8 +1,8 @@
 import dcImage from "@/public/mohammed.png";
 import { getActivityFeeds } from "../_lib/data-service";
 import ActivityFeedItem from "./ActivityFeedItem";
-async function ActivityFeed() {
-  const activityFeeds = await getActivityFeeds();
+async function ActivityFeed({ patientID }) {
+  const activityFeeds = await getActivityFeeds(null, patientID);
 
   return (
     <div className="space-y-5">

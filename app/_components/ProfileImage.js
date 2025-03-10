@@ -1,11 +1,16 @@
 import Image from "next/image";
 import profileImage from "@/public/mohammed.png";
-function ProfileImage() {
+function ProfileImage({ image }) {
   return (
     <div className="flex justify-between items-center ">
       <div className="flex gap-2">
         <div className="w-16 h-16 relative">
-          <Image className="rounded-full" src={profileImage} alt="" fill />
+          <Image
+            className="rounded-full object-cover"
+            src={image}
+            alt=""
+            fill
+          />
         </div>
         <h3 className="text-lg">Profile picture</h3>
       </div>

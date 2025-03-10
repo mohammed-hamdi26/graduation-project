@@ -1,129 +1,150 @@
 "use client";
 
 import Input from "@/app/_components/Input";
-import FormRow from "./FormRow";
+import { motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
-import Button from "./Button";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { addUser } from "../_lib/actions";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
-import { useActionState, useState } from "react";
+import { usePredict } from "../_context/predictContext";
+import { addUser } from "../_lib/actions";
+import Button from "./Button";
+import FormRow from "./FormRow";
+import ImageInput from "./ImageInput";
 
 function FormSignUp() {
-  const [formValues, setFormValues] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    age: "",
-    phone: "",
-  });
-  const [state, action, pending] = useActionState(addUser, undefined);
+  const { register, handleSubmit, formState, setValue, getValues } = useForm();
+  const { errors } = formState;
+  const [image, setImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleChange(e) {
-    setFormValues((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const predict = usePredict();
+
+  async function submit(data) {
+    setIsSubmitting(true);
+    let userData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      userData.append(key, value);
+    });
+    Object.entries(predict.predict).forEach(([key, value]) => {
+      userData.append(key, value);
+    });
+
+    try {
+      await addUser(userData);
+      toast.success("the user is added");
+      setIsSubmitting(false);
+    } catch (e) {
+      setIsSubmitting(false);
+      console.log(e);
+      toast.error("cant add user");
+    }
   }
-  // const { register, handleSubmit, formState } = useForm();
-  // const { errors } = formState;
-
-  // async function submit(data) {
-  //   // try {
-  //   //   await addUser(data);
-  //   //   toast.success("the user is added");
-  //   // } catch (e) {
-  //   //   console.log(e);
-  //   //   toast.error("cant add user");
-  //   // }
-  // }
   return (
-    <form
-      action={action}
-      // onSubmit={handleSubmit(submit)}
-      className="bg-white  px-9 py-12 rounded-3xl w-full md:w-2/5 space-y-6"
+    <motion.form
+      initial={{ translateY: "-150%", opacity: 0 }}
+      animate={{ translateY: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      onSubmit={handleSubmit(submit)}
+      className="bg-white  px-9 py-9 rounded-3xl w-full md:w-2/5 space-y-6"
     >
       <div className="text-center space-y-3">
         <h2 className="text-4xl font-medium">complete the form</h2>
         <p>
           Already have an ccount?{" "}
-          <Link href="/login" className="text-main underline">
+          <Link href="/login" className="text-second-main underline">
             Log in{" "}
           </Link>{" "}
         </p>
       </div>
       <FormRow>
         <Input
-          value={formValues.first_name}
-          onChange={handleChange}
+          register={register("first_name", {
+            required: "First name is required",
+          })}
           label="First Name"
           type="text"
-          name={"first_name"}
-          error={state?.errors?.first_name ?? null}
-          disabled={pending}
+          error={errors?.first_name?.message ?? null}
+          disabled={isSubmitting}
         />
         <Input
-          value={formValues.last_name}
-          onChange={handleChange}
+          register={register("last_name", {
+            required: "Last name is required",
+          })}
           label="Last Name"
           type="text"
-          name={"last_name"}
-          error={state?.errors?.last_name ?? null}
-          disabled={pending}
+          error={errors?.last_name?.message ?? null}
+          disabled={isSubmitting}
         />
       </FormRow>
       <FormRow>
         <Input
-          value={formValues.email}
-          onChange={handleChange}
+          register={register("email", { required: "Email is required" })}
           label="your email"
           type="email"
-          name={"email"}
-          error={state?.errors?.email ?? null}
-          disabled={pending}
+          error={errors?.email?.message ?? null}
+          disabled={isSubmitting}
         />
         <Input
-          value={formValues.password}
-          onChange={handleChange}
+          register={register("password", { required: "Password is required" })}
           label="National ID"
           type="text"
           name={"password"}
-          error={state?.errors?.password ?? null}
-          disabled={pending}
+          error={errors?.password?.message ?? null}
+          disabled={isSubmitting}
         />
       </FormRow>
       <FormRow>
         <Input
-          value={formValues.age}
-          onChange={handleChange}
-          name={"age"}
+          register={register("age", { required: "Age is required" })}
           label="age"
-          error={state?.errors?.age ?? null}
-          disabled={pending}
+          error={errors?.age?.message ?? null}
+          disabled={isSubmitting}
         />
         <Input
           name={"chronic_disease"}
           label="Choronic disease"
-          disabled={pending}
+          disabled={isSubmitting}
         />
       </FormRow>
       <Input
-        value={formValues.phone}
-        onChange={handleChange}
+        register={register("phone", { required: "Phone is required" })}
         label="phone"
-        name={"phone"}
-        error={state?.errors?.phone ?? null}
-        disabled={pending}
+        error={errors?.phone?.message ?? null}
+        disabled={isSubmitting}
       />
+      <FormRow>
+        {image && (
+          <div className=" relative w-16 h-16 rounded-full overflow-hidden">
+            <Image
+              className="object-cover"
+              fill
+              src={image}
+              alt=""
+              quality={100}
+            />
+          </div>
+        )}
+        <ImageInput
+          register={register("profile_picture")}
+          label={"profile picture"}
+          type="file"
+          onChange={(e) => {
+            const image = e.target.files[0];
+
+            if (image) {
+              setValue("profile_picture", image); // Update form state with file
+              setImage(URL.createObjectURL(image)); //
+            }
+          }}
+        />
+      </FormRow>
       <div className="flex items-center justify-between">
-        <Link href="/login" className="underline text-lg ">
-          log in instead
-        </Link>
-        <Button>create account</Button>
+        <Button className="w-full">create account</Button>
       </div>
-    </form>
+    </motion.form>
   );
 }
 

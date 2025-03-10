@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@date-fns/tz": "^1.2.0",
     "@nextui-org/spinner": "^2.0.34",
     "axios": "^1.7.8",
     "date-fns": "^4.1.0",

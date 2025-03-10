@@ -2,11 +2,16 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHistory, FaRegUser } from "react-icons/fa";
 import { FaUserCheck, FaUserDoctor } from "react-icons/fa6";
 import { HiOutlineHome } from "react-icons/hi2";
-import { IoIosArrowBack, IoIosArrowForward, IoMdAlarm } from "react-icons/io";
+import {
+  IoIosArrowBack,
+  IoIosArrowForward,
+  IoMdAlarm,
+  IoMdPhotos,
+} from "react-icons/io";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import NavItem from "./NavItem";
 
@@ -33,7 +38,7 @@ const navLinks = [
     name: "medical history",
     href: "/dashboard/medical-history",
     icon: <FaHistory className="h-6 w-6" />,
-    typePath: "both",
+    typePath: "patient",
   },
   {
     name: "check yourself",
@@ -52,6 +57,12 @@ const navLinks = [
     icon: <IoMdAlarm className="h-6 w-6" />,
     typePath: "patient",
   },
+  {
+    name: "cancer-photos",
+    href: "/dashboard/cancer-photos",
+    icon: <IoMdPhotos className="h-6 w-6" />,
+    typePath: "both",
+  },
 ];
 
 function NavBar({ children, user }) {
@@ -64,7 +75,7 @@ function NavBar({ children, user }) {
       transition: { duration: 0.5 },
     },
     closed: {
-      width: "105px",
+      width: "90px",
 
       transition: { duration: 0.5 },
     },
@@ -77,6 +88,13 @@ function NavBar({ children, user }) {
     : navLinks.filter(
         (link) => link.typePath === "both" || link.typePath === "patient"
       );
+  useEffect(() => {
+    window.addEventListener("resize", (e) => {
+      if (e.target.innerWidth <= 769) {
+        setIsNavOpen(false);
+      }
+    });
+  }, []);
   return (
     <motion.nav
       variants={navVariants}
@@ -96,7 +114,7 @@ function NavBar({ children, user }) {
       </ul>
       <Link href="/dashboard/profile">{children}</Link>
       <button
-        className="absolute top-0 -right-[15px] bg-second-main text-white  rounded-full w-7 h-7 flex justify-center items-center z-10"
+        className="absolute hidden top-0 -right-[15px] bg-second-main text-white  rounded-full w-7 h-7 md:flex justify-center items-center z-10"
         onClick={() => {
           setIsNavOpen(!isNavOpen);
         }}

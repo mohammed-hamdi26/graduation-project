@@ -1,4 +1,5 @@
 import MedicalContainer from "@/app/_components/MedicalContainer";
+import Modal from "@/app/_components/Modal";
 
 export default function Page() {
   return (

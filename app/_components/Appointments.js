@@ -9,7 +9,7 @@ async function Appointments({ userID }) {
       className="space-y-4 w-80 
    h-full"
     >
-      {appointments.map((appointment) => (
+      {appointments.slice(0, 3).map((appointment) => (
         <AppointmentItem key={appointment.id} appointment={appointment} />
       ))}
     </div>

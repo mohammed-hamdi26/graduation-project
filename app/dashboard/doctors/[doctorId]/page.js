@@ -7,18 +7,25 @@ import {
   getDoctorAvailability,
   getUser,
 } from "@/app/_lib/data-service";
-import { get } from "axios";
-export default async function page({ params }) {
+import { format } from "date-fns";
+
+export default async function page({ params, searchParams }) {
+  const { day } = await searchParams;
   const { doctorId } = await params;
   const doctor = await getDoctor(doctorId);
-  const calanderAvailability = await getDoctorAvailability(doctor.id);
+  console.log(doctor);
+  const calanderAvailability = await getDoctorAvailability(
+    doctorId,
+    day || format(new Date(), "yyyy-MM-dd")
+  );
   const user = await getUser();
 
-  const bookedAppointments = await getBookedAppointmentsForDoctor(doctor.id);
+  const bookedAppointments = await getBookedAppointmentsForDoctor(doctorId);
+  console.log(bookedAppointments);
   return (
     <div className="space-y-8">
-      <div className="flex gap-6">
-        <div className="w-[333px] h-[519px] relative">
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div className=" w-full lg:w-[333px] h-[519px] relative">
           <Image
             src={doctor.img ? `${process.env.APi_URL}${doctor.img}` : ""}
             fill
@@ -39,8 +46,8 @@ export default async function page({ params }) {
         <Calender
           bookedAppointments={bookedAppointments}
           userID={user.id}
-          docID={doctor.id}
-          availability={calanderAvailability[0]}
+          docID={doctorId}
+          availability={calanderAvailability}
         />
       </div>
     </div>

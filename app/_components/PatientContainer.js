@@ -11,6 +11,7 @@ async function PatientContainer() {
           key={patient.id}
           name={`${patient.first_name} ${patient.last_name}`}
           patientId={patient.user}
+          image={patient.profile_picture}
         />
       ))}
     </div>

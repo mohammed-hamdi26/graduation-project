@@ -30,6 +30,10 @@ function DurationCart() {
       name: "may",
       improvementRate: 70,
     },
+    {
+      name: "march",
+      improvementRate: 50,
+    },
   ];
   return (
     <motion.div
@@ -61,7 +65,7 @@ function DurationCart() {
             type="monotone"
             name="improvement Rate "
             dataKey="improvementRate"
-            stroke="#06A881"
+            stroke="#432C81"
             activeDot={{ r: 8 }}
           />
         </LineChart>

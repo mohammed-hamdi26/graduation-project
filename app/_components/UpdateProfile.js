@@ -5,6 +5,7 @@ import UpdateFormInput from "./UpdateFormInput";
 import UpadteFormInput from "./UpdateFormInput";
 import { Controller, useForm } from "react-hook-form";
 import { editUser } from "../_lib/actions";
+import toast from "react-hot-toast";
 
 function UpdateProfile({ user }) {
   const [disabled, setDisabled] = useState(true);
@@ -14,11 +15,18 @@ function UpdateProfile({ user }) {
   });
 
   async function submit(data) {
-    const updatedData = { ...data, password: user.password };
+    const updatedData = {
+      ...data,
+      email: user.email,
+      password: user.password,
+      id: user.id,
+    };
+    console.log(updatedData);
     setDisabled(true);
     const res = await editUser(updatedData);
 
     setDisabled(false);
+    toast.success("Data updated successfully");
   }
   return (
     <form onSubmit={handleSubmit(submit)} className="pt-4    ">
@@ -48,7 +56,8 @@ function UpdateProfile({ user }) {
       <div className="flex justify-end gap-3 mt-3">
         {disabled ? (
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setDisabled(false);
             }}
             className="bg-second-main p-2 px-4 rounded-full text-white"

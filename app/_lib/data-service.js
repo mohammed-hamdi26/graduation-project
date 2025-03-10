@@ -2,6 +2,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 
 import { decrypt } from "./session";
+import { revalidatePath } from "next/cache";
 
 // user
 export async function getUser() {
@@ -41,14 +42,22 @@ export async function getDoctor(doctorId) {
   }
 }
 
-export async function getDoctorAvailability(id) {
+export async function getDoctorAvailability(id, day) {
   try {
     const res = await axios.get(`${process.env.APi_URL}/doctorav-list/${id}/`);
-
+    let filterDay;
+    if (day) {
+      res.data.forEach((availability) => {
+        if (day === availability.date) {
+          filterDay = availability;
+        }
+      });
+      return filterDay ? filterDay : null;
+    }
     return res.data;
   } catch (err) {
     // console.log(err);
-    throw new Error(err.message);
+    throw new Error(err);
   }
 }
 // patients
@@ -82,7 +91,12 @@ export async function getActivityFeeds(docID, patientID) {
     let filteredActivities = res.data;
     if (docID && patientID) {
       filteredActivities = res.data.filter(
-        (activity) => activity.sender === docID && activity.reciever
+        (activity) =>
+          activity.sender === docID && activity.reciever == patientID
+      );
+    } else if (patientID) {
+      filteredActivities = res.data.filter(
+        (activity) => activity.reciever === patientID
       );
     }
 
@@ -96,16 +110,16 @@ export async function getActivityFeeds(docID, patientID) {
 export async function getBookedAppointmentsForDoctor(docID) {
   try {
     const res = await axios.get(
-      `${process.env.APi_URL}/book-appointments-list/`
+      `${process.env.APi_URL}/book-appointments-list/${docID}/`
     );
     let filteredAppointments = res.data;
-    if (docID) {
-      filteredAppointments = res.data.filter(
-        (appointment) => appointment.doctor === docID
-      );
-    }
+    // if (docID) {
+    //   filteredAppointments = res.data.filter(
+    //     (appointment) => appointment.doctor === docID
+    //   );
+    // }
 
-    return filteredAppointments;
+    return typeof filteredAppointments === "object" ? filteredAppointments : [];
   } catch (err) {
     console.log(err.message);
     throw new Error(err.message);
@@ -137,6 +151,7 @@ export async function getAlarms(id) {
     if (id) {
       filteredAlarms = res.data.filter((alarm) => alarm.user === id);
     }
+
     return res.data;
   } catch (err) {
     console.log(err.message);

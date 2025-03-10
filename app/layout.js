@@ -1,13 +1,14 @@
 import { Poppins } from "next/font/google";
 
-const poppins = Poppins({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-  display: "swap",
-});
+// const poppins = Poppins({
+//   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+//   subsets: ["latin"],
+//   display: "swap",
+// });
 
 import "./_styles/globals.css";
 import { Toaster } from "react-hot-toast";
+import { PredictProvider } from "./_context/predictContext";
 
 export const metadata = {
   title: {
@@ -18,13 +19,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const poppinsClass = poppins.className;
+  // const poppinsClass = poppins.className;
   return (
-    <html lang="en" suppressHydrationWarning={false}>
+    <html lang="en" suppressHydrationWarning>
       <body>
         <Toaster position="bottom-right" />
         <div className="flex flex-col h-dvh">
-          <main className="flex-1 h-full  ">{children}</main>
+          <PredictProvider>
+            <main className="flex-1 h-full  ">{children}</main>
+          </PredictProvider>
         </div>
       </body>
     </html>

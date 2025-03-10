@@ -2,9 +2,9 @@
 import Image from "next/image";
 import DocImage from "@/public/Rectangle 94.png";
 import { motion } from "motion/react";
-function DoctorInfo() {
+function DoctorInfo({ image }) {
   return (
-    <div className="grid  flex-1 ">
+    <div className="grid row-span-2 h-96 w-96 rounded-full overflow-hidden    ">
       <motion.div
         transition={{ duration: 0.4 }}
         initial={{ scale: 0 }}
@@ -12,8 +12,8 @@ function DoctorInfo() {
         className="relative "
       >
         <Image
-          src={DocImage}
-          className="object-contain object-top w-full  rounded-lg"
+          src={image}
+          className="object-cover object-top w-full  rounded-lg"
           fill
           alt=""
         />

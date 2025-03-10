@@ -12,8 +12,24 @@ module.exports = {
         "second-main": "#432C81",
         secondary: "#7B6BA8",
         background: "#FCFBF9",
+        paragraph: "#555555 ",
 
         foreground: "var(--foreground)",
+      },
+      animation: {
+        error: "error 2s  infinite",
+      },
+      keyframes: {
+        error: {
+          "0%, 100%": {
+            transform: "translateY(50px)",
+            // "animation-timing-function": "cubic-bezier(0.5,0,1,1)",
+          },
+          "50%": {
+            transform: "translateY(-50px)",
+            // "animation-timing-function": "cubic-bezier(0,0,0.2,1)",
+          },
+        },
       },
     },
   },

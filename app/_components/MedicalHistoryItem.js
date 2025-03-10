@@ -4,9 +4,9 @@ import { motion } from "motion/react";
 import { IoDocumentTextOutline } from "react-icons/io5";
 function MedicalHistoryItem({ info }) {
   console.log(info);
-  const date = isToday(info.timestamp)
+  const date = isToday(info.updated_at)
     ? "Today"
-    : format(info.timestamp, "EEEE dd LLL");
+    : format(info.updated_at, "EEEE dd LLL");
   return (
     <motion.div
       initial={{ scale: 0 }}

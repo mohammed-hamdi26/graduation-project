@@ -1,12 +1,15 @@
-import { format, isSameDay, isSameHour } from "date-fns";
+import { TZDate } from "@date-fns/tz";
+import { differenceInHours, format, set } from "date-fns";
 
+TZDate.tz("Africa/Cairo");
 export function calculateHours(currentHour, medicalHour) {
   const differenceHours = currentHour - medicalHour;
   return differenceHours < 0 ? differenceHours + 24 : differenceHours;
 }
 
 export function getDateWithOutTime(date) {
-  return date.toISOString().split("T")[0];
+  // return date.toISOString().split("T")[0];
+  return format(date, "yyyy-MM-dd");
 }
 
 export function filterUnBookedAppointments(appointments, bookedAppointments) {
@@ -26,4 +29,31 @@ export function filterUnBookedAppointments(appointments, bookedAppointments) {
     });
   }
   return filteredAppointments;
+}
+
+export function getNearestDrug(drugs) {
+  const drugsDates = drugs.map((drug) => {
+    const timeString = drug.alarm_time.split(":"); // Desired time
+
+    const updatedDate = set(new TZDate().toString(), {
+      hours: Number(timeString[0]) + 2,
+      minutes: timeString[1],
+      seconds: timeString[2],
+    });
+    // console.log(updatedDate);
+    // console.log(new TZDate().toString());
+
+    return updatedDate;
+  });
+
+  let nearestDate;
+  let maxDifference = -Infinity;
+  drugsDates.forEach((date) => {
+    if (differenceInHours(new Date(), date) > maxDifference) {
+      maxDifference = differenceInHours(new Date(), date);
+      nearestDate = date;
+    }
+  });
+
+  return nearestDate;
 }

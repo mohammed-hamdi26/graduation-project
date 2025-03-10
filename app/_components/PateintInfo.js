@@ -10,7 +10,7 @@ function PatientInfo({ patient }) {
         <div className="flex items-center gap-4 capitalize">
           <div className="relative h-20 w-20">
             <Image
-              src={patientImage}
+              src={`${process.env.API_URL}${patient.profile_picture}`}
               fill
               className="object-cover rounded-full"
               alt=""

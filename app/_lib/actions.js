@@ -47,33 +47,26 @@ export async function login(formData) {
   redirect("/dashboard");
 }
 
-export async function addUser(state, formData) {
+export async function addUser(userData) {
   // Validate form fields
 
-  const validatedFields = SignupFormSchema.safeParse({
-    first_name: formData.get("first_name"),
-    last_name: formData.get("last_name"),
-    full_name: `${formData.get("first_name")} ${formData.get("last_name")}`,
-    email: formData.get("email"),
-    password: formData.get("password"),
-    age: Number(formData.get("age")),
-    phone: formData.get("phone"),
-  });
+  console.log(userData);
+  userData.append("active", true);
+  userData.append("staff", false);
+  userData.append("admin", false);
 
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
-
+  console.log(userData);
   try {
-    const res = await axios.post(`${process.env.APi_URL}/users-list/`, {
-      ...validatedFields.data,
-      active: true,
-      staff: false,
-      admin: false,
-    });
-
+    const res = await axios.post(
+      `${process.env.APi_URL}/users-list/`,
+      userData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(res);
     const user = res.data;
 
     // Current steps:
@@ -81,7 +74,7 @@ export async function addUser(state, formData) {
     await createSession(user.id);
   } catch (err) {
     console.log(err.response);
-    return;
+    throw new Error(err.message);
   }
   redirect("/dashboard");
 }
@@ -94,6 +87,7 @@ export async function editUser(updatedData) {
       updatedData
     );
     console.log(res);
+    revalidatePath("/dashboard/profile");
   } catch (err) {
     console.error(err.response);
     // throw new Error(err.message);
@@ -116,21 +110,15 @@ export async function sendHistory(data) {
 }
 
 export async function addAvailability(data) {
-  const doctor = await getUser();
-  console.log({
-    day: data.get("day"),
-    start_time: `${data.get("start_time")}:00`,
-    end_time: `${data.get("end_time")}:00`,
-    doctor: doctor.id,
-  });
+  // const doctor = await getUser();
+  // console.log({
+  //   day: data.get("day"),
+  //   start_time: `${data.get("start_time")}:00`,
+  //   end_time: `${data.get("end_time")}:00`,
+  //   doctor: doctor.id,
+  // });
   try {
-    const res = await axios.post(`${process.env.APi_URL}/doctorav-list/`, {
-      day: data.get("day"),
-      start_time: data.get("start_time"),
-      end_time: data.get("end_time"),
-      // doctor: doctor.id,
-      doctor: 1,
-    });
+    const res = await axios.post(`${process.env.APi_URL}/doctorav-list/`, data);
     console.log(res);
   } catch (err) {
     console.log(err.response);
@@ -159,6 +147,7 @@ export async function bookAppointment(data) {
       data
     );
     console.log(res);
+    revalidatePath("/dashboard/doctors/3");
   } catch (err) {
     console.error(err.response);
     // throw new Error(err.message);
