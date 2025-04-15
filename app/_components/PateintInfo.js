@@ -3,7 +3,11 @@ import { CiCalendarDate } from "react-icons/ci";
 import { FaFemale, FaMale, FaPhoneAlt } from "react-icons/fa";
 import cancerImage from "@/public/cancerPhoto.png";
 import patientImage from "@/public/mohammed.png";
-function PatientInfo({ patient }) {
+import { getUserById } from "../_lib/data-service";
+import { getTranslations } from "next-intl/server";
+async function PatientInfo({ patient }) {
+  const user = await getUserById(patient.user);
+  const t = await getTranslations("Patients");
   return (
     <div className=" flex flex-col flex-1">
       <div className="   bg-second-main flex justify-between items-center p-5 rounded-t-lg text-white text-4xl font-semibold ">
@@ -33,14 +37,19 @@ function PatientInfo({ patient }) {
             </p> */}
           <p className="flex items-center gap-2 ">
             {patient.gender === "M" ? <FaMale /> : <FaFemale />}
-            {patient.gender === "M" ? "male" : "female"}
+            {patient.gender === "M" ? t("male") : t("female")}
           </p>
           <p className="flex items-center gap-2 ">
             <CiCalendarDate /> 25
           </p>
         </div>
         <div className="relative w-72  h-72">
-          <Image src={cancerImage} fill alt="" className="object-cover" />
+          <Image
+            src={` ${process.env.API_URL}${user.cancer_photo}`}
+            fill
+            alt=""
+            className="object-cover"
+          />
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import userImage from "@/public/Rectangle 94.png";
 import { getUser } from "../_lib/data-service";
 async function NavProfileItem() {
   const user = await getUser();
-  console.log(user);
 
   return (
     <div className=" w-full border-t flex items-center gap-2 py-2 mt-auto justify-self-center cursor-pointer px-4 transition-[background-color] duration-500 hover:bg-gray-200">

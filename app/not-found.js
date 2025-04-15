@@ -1,12 +1,12 @@
 import Image from "next/image";
-import errorImage from "../public/error404.svg";
-import vectorImage1 from "../public/Vector1.svg";
-import vectorImage2 from "../public/Vector2.svg";
-import Button from "./_components/Button";
+import errorImage from "@/public/error404.svg";
+import vectorImage1 from "@/public/Vector1.svg";
+import vectorImage2 from "@/public/Vector2.svg";
+import Button from "@/app/_components/Button";
 import Link from "next/link";
 export default function NotFound() {
   return (
-    <div className="flex flex-col justify-center items-center bg-background h-full relative">
+    <div className="flex flex-col justify-center items-center bg-background h-screen overflow-hidden w-full relative">
       <Image src={vectorImage1} alt="" className="absolute bottom-0 left-0" />
       <Image src={vectorImage2} alt="" className="absolute top-0 right-0" />
 

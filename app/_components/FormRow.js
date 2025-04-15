@@ -1,6 +1,6 @@
 function FormRow({ children }) {
   return (
-    <div className=" flex  flex-col sm:flex-row sm:items-center sm:gap-4   ">
+    <div className=" flex  flex-col sm:flex-row sm:items-center sm:gap-3   ">
       {children}{" "}
     </div>
   );

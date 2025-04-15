@@ -12,8 +12,10 @@ import { addUser } from "../_lib/actions";
 import Button from "./Button";
 import FormRow from "./FormRow";
 import ImageInput from "./ImageInput";
+import { useTranslations } from "next-intl";
 
 function FormSignUp() {
+  const t = useTranslations("from");
   const { register, handleSubmit, formState, setValue, getValues } = useForm();
   const { errors } = formState;
   const [image, setImage] = useState(null);
@@ -48,14 +50,14 @@ function FormSignUp() {
       animate={{ translateY: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       onSubmit={handleSubmit(submit)}
-      className="bg-white  px-9 py-9 rounded-3xl w-full md:w-2/5 space-y-6"
+      className="bg-white  px-5 py-7 rounded-3xl w-full md:w-2/5 space-y-6"
     >
       <div className="text-center space-y-3">
-        <h2 className="text-4xl font-medium">complete the form</h2>
+        <h2 className="text-4xl font-medium">{t("complete the form")}</h2>
         <p>
-          Already have an ccount?{" "}
+          {t("Already have an account")}?{" "}
           <Link href="/login" className="text-second-main underline">
-            Log in{" "}
+            {t("Log in")}{" "}
           </Link>{" "}
         </p>
       </div>
@@ -64,7 +66,7 @@ function FormSignUp() {
           register={register("first_name", {
             required: "First name is required",
           })}
-          label="First Name"
+          label={t("First Name")}
           type="text"
           error={errors?.first_name?.message ?? null}
           disabled={isSubmitting}
@@ -78,44 +80,49 @@ function FormSignUp() {
           error={errors?.last_name?.message ?? null}
           disabled={isSubmitting}
         />
-      </FormRow>
-      <FormRow>
         <Input
-          register={register("email", { required: "Email is required" })}
-          label="your email"
-          type="email"
+          register={register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Invalid email format",
+            },
+          })}
+          label={t("your email")}
+          type="text"
           error={errors?.email?.message ?? null}
           disabled={isSubmitting}
         />
+      </FormRow>
+      <FormRow>
         <Input
           register={register("password", { required: "Password is required" })}
-          label="National ID"
+          label={t("National ID")}
           type="text"
           name={"password"}
           error={errors?.password?.message ?? null}
           disabled={isSubmitting}
         />
-      </FormRow>
-      <FormRow>
         <Input
           register={register("age", { required: "Age is required" })}
-          label="age"
+          label={t("age")}
           error={errors?.age?.message ?? null}
           disabled={isSubmitting}
         />
         <Input
           name={"chronic_disease"}
-          label="Choronic disease"
+          label={t("Choronic disease")}
           disabled={isSubmitting}
         />
       </FormRow>
-      <Input
-        register={register("phone", { required: "Phone is required" })}
-        label="phone"
-        error={errors?.phone?.message ?? null}
-        disabled={isSubmitting}
-      />
+
       <FormRow>
+        <Input
+          register={register("phone", { required: "Phone is required" })}
+          label={t("phone")}
+          error={errors?.phone?.message ?? null}
+          disabled={isSubmitting}
+        />
         {image && (
           <div className=" relative w-16 h-16 rounded-full overflow-hidden">
             <Image
@@ -129,7 +136,7 @@ function FormSignUp() {
         )}
         <ImageInput
           register={register("profile_picture")}
-          label={"profile picture"}
+          label={t("profile picture")}
           type="file"
           onChange={(e) => {
             const image = e.target.files[0];
@@ -142,7 +149,7 @@ function FormSignUp() {
         />
       </FormRow>
       <div className="flex items-center justify-between">
-        <Button className="w-full">create account</Button>
+        <Button className="w-full">{t("create account")}</Button>
       </div>
     </motion.form>
   );

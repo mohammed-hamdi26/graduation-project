@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-function NavItem({ link, path, isNavOpen }) {
+function NavItem({ link, path, isNavOpen, t }) {
   return (
     <li
       key={link.name}
@@ -14,7 +14,7 @@ function NavItem({ link, path, isNavOpen }) {
         {link.icon}
         {isNavOpen && (
           <span className="font-medium hidden md:block capitalize">
-            {link.name}
+            {t(link.name)}
           </span>
         )}
       </Link>

@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 
 import { decrypt } from "./session";
 import { revalidatePath } from "next/cache";
+import { date } from "zod";
 
 // user
 export async function getUser() {
@@ -10,6 +11,15 @@ export async function getUser() {
   const session = await decrypt(cookie);
   const id = session?.userId;
 
+  try {
+    const res = await axios.get(`${process.env.APi_URL}/users-list/${id}/`);
+
+    return res.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+export async function getUserById(id) {
   try {
     const res = await axios.get(`${process.env.APi_URL}/users-list/${id}/`);
 
@@ -43,9 +53,11 @@ export async function getDoctor(doctorId) {
 }
 
 export async function getDoctorAvailability(id, day) {
+  console.log(process.env.APi_URL);
   try {
     const res = await axios.get(`${process.env.APi_URL}/doctorav-list/${id}/`);
     let filterDay;
+
     if (day) {
       res.data.forEach((availability) => {
         if (day === availability.date) {
@@ -54,9 +66,9 @@ export async function getDoctorAvailability(id, day) {
       });
       return filterDay ? filterDay : null;
     }
-    return res.data;
+    return typeof res.data === "object" ? res.data : [];
   } catch (err) {
-    // console.log(err);
+    console.log(err.response);
     throw new Error(err);
   }
 }
@@ -92,11 +104,11 @@ export async function getActivityFeeds(docID, patientID) {
     if (docID && patientID) {
       filteredActivities = res.data.filter(
         (activity) =>
-          activity.sender === docID && activity.reciever == patientID
+          activity.sender === docID && activity.receiver == patientID
       );
     } else if (patientID) {
       filteredActivities = res.data.filter(
-        (activity) => activity.reciever === patientID
+        (activity) => activity.receiver === patientID
       );
     }
 
@@ -107,17 +119,30 @@ export async function getActivityFeeds(docID, patientID) {
   }
 }
 
+export async function getUploadedPhotos(id) {
+  console.log(process.env.APi_URL);
+  try {
+    const result = await axios.get(`${process.env.APi_URL}/photo-uploader/`);
+    let filteredPhotos = result.data;
+    if (id) {
+      filteredPhotos = result.data.filter((photo) => photo.uploader == id);
+    }
+    return filteredPhotos;
+  } catch (e) {
+    console.log(e);
+  }
+}
 export async function getBookedAppointmentsForDoctor(docID) {
   try {
     const res = await axios.get(
-      `${process.env.APi_URL}/book-appointments-list/${docID}/`
+      `${process.env.APi_URL}/book-appointments-list/`
     );
     let filteredAppointments = res.data;
-    // if (docID) {
-    //   filteredAppointments = res.data.filter(
-    //     (appointment) => appointment.doctor === docID
-    //   );
-    // }
+    if (docID) {
+      filteredAppointments = res.data.filter(
+        (appointment) => appointment.doctor == docID
+      );
+    }
 
     return typeof filteredAppointments === "object" ? filteredAppointments : [];
   } catch (err) {
@@ -133,7 +158,7 @@ export async function getBookedAppointmentsForPatient(patientID) {
     let filteredAppointments = res.data;
     if (patientID) {
       filteredAppointments = res.data.filter(
-        (appointment) => appointment.patient === patientID
+        (appointment) => appointment.patient == patientID
       );
     }
 
@@ -147,14 +172,15 @@ export async function getBookedAppointmentsForPatient(patientID) {
 export async function getAlarms(id) {
   try {
     const res = await axios.get(`${process.env.APi_URL}/alarm/`);
-    let filteredAlarms = res.data;
+    let filterAlarms = res.data;
+
     if (id) {
-      filteredAlarms = res.data.filter((alarm) => alarm.user === id);
+      filterAlarms = filterAlarms.filter((alarm) => alarm.user == id);
     }
 
-    return res.data;
+    return typeof filterAlarms === "object" ? filterAlarms : [];
   } catch (err) {
     console.log(err.message);
-    throw new Error(err.message);
+    // throw new Error(err.message);
   }
 }

@@ -2,13 +2,15 @@ import Image from "next/image";
 import patientImage from "@/public/mohammed.png";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 function PatientItem({ name, patientId, image }) {
+  const local = useLocale();
   return (
-    <Link href={`/dashboard/patients/${patientId}`}>
+    <Link href={`/${local}/dashboard/patients/${patientId}`}>
       <div className="flex flex-col h-72 cursor-pointer ">
         <div className="relative flex-1">
           <Image
-            src={`${process.env.APi_URL}${image}`}
+            src={image ? `${process.env.APi_URL}${image}` : ""}
             fill
             className="object-fill object-top rounded-t-lg"
             alt=""

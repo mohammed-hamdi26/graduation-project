@@ -1,12 +1,20 @@
+import createMiddleware from "next-intl/middleware";
+
 import { NextResponse } from "next/server";
 import { decrypt } from "@/app/_lib/session";
 import { cookies } from "next/headers";
+
+const intlMiddleware = createMiddleware({
+  locales: ["en", "ar"],
+  defaultLocale: "en",
+  localeDetection: true,
+});
 
 // 1. Specify protected and public routes
 const protectedRoutes = "dashboard";
 const publicRoutes = ["/login", "/signup", "/"];
 
-export default async function middleware(req) {
+async function authenticated(req) {
   // 2. Check if the current route is protected or public
 
   const path = req.nextUrl.pathname;
@@ -35,7 +43,21 @@ export default async function middleware(req) {
   return NextResponse.next();
 }
 
+export default async function middleware(req) {
+  const intlResponse = intlMiddleware(req);
+  console.log(intlResponse);
+  if (intlResponse?.ok) {
+    return intlResponse;
+  }
+  return authenticated(req);
+}
+
 // Routes Middleware should not run on
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: [
+    "/",
+    "/(en|ar)/:path*",
+    // "/dashboard/:path*",
+    // "/((?!api|_next/static|_next/image|.*\\.png$).*)",
+  ],
 };

@@ -7,7 +7,7 @@ async function AppointmentItem({ appointment }) {
   const dayOfWeak = bookedDate.toLocaleDateString("en-US", {
     weekday: "short",
   });
-  const doctor = await getDoctor(3);
+  const doctor = await getDoctor(appointment.doctor);
   return (
     <div className="flex gap-3">
       <DateBox dayOfWeak={dayOfWeak} day={day} />

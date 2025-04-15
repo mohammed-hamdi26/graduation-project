@@ -3,20 +3,30 @@ import AvailabilityDoctorTime from "./AvailabilityDoctorTime";
 import DoctorInfo from "./DoctorInfo";
 import Box from "./Box";
 import DoctorSelectedAvailabilities from "./DoctorSelectedAvailabilities";
+import { getTranslations } from "next-intl/server";
 
-function DoctorHome({ user }) {
+async function DoctorHome({ user }) {
+  const t = await getTranslations("doctor-home");
   return (
     <div className="h-fit space-y-8 flex flex-col">
       <h2 className="text-second-main text-3xl capitalize font-semibold">
-        {format(new Date(), "aaa") === "am" ? "Good Morning" : "Good Evening"}{" "}
-        <span className="text-4xl font-bold">
+        {format(new Date(), "aaa") === "am"
+          ? t("Good Morning")
+          : t("Good Evening")}{" "}
+        <span className="text-4xl font-bold block">
           Dr. {user.first_name} {user.last_name}
         </span>{" "}
       </h2>
-      <div className="grid  grid-rows-1 grid-cols-2 gap-8 flex-1  ">
-        <DoctorInfo image={`${process.env.APi_URL}${user.profile_picture}`} />
+      <div className="grid  grid-cols-1 sm:grid-rows-1 lg:grid-cols-2 gap-8 flex-1  ">
+        <DoctorInfo
+          image={
+            user.profile_picture
+              ? `${process.env.APi_URL}${user.profile_picture}`
+              : ""
+          }
+        />
         <AvailabilityDoctorTime docID={user.id} />
-        {/* <DoctorSelectedAvailabilities /> */}
+        <DoctorSelectedAvailabilities docID={user.id} />
       </div>
     </div>
   );

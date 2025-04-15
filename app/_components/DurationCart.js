@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import {
   CartesianGrid,
   Legend,
@@ -12,29 +14,30 @@ import {
   YAxis,
 } from "recharts";
 
+const data = [
+  {
+    name: "jan",
+    improvementRate: 10,
+  },
+  {
+    name: "feb",
+    improvementRate: 24,
+  },
+  {
+    name: "april",
+    improvementRate: 16,
+  },
+  {
+    name: "may",
+    improvementRate: 70,
+  },
+  {
+    name: "march",
+    improvementRate: 50,
+  },
+];
 function DurationCart() {
-  const data = [
-    {
-      name: "jan",
-      improvementRate: 10,
-    },
-    {
-      name: "feb",
-      improvementRate: 24,
-    },
-    {
-      name: "april",
-      improvementRate: 16,
-    },
-    {
-      name: "may",
-      improvementRate: 70,
-    },
-    {
-      name: "march",
-      improvementRate: 50,
-    },
-  ];
+  const t = useTranslations("patient-home");
   return (
     <motion.div
       initial={{ scale: 0 }}
@@ -42,7 +45,7 @@ function DurationCart() {
       className=" bg-white rounded-lg   mb-8 p-4"
     >
       <h2 className="text-second-main text-2xl capitalize mb-6">
-        improvement Rate
+        {t("improvement Rate")}
       </h2>
       <ResponsiveContainer width="100%" height="80%">
         <LineChart

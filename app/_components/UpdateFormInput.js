@@ -1,4 +1,11 @@
-function UpdateFormInput({ label, value, type = "text", disabled, register }) {
+function UpdateFormInput({
+  label,
+  value,
+  type = "text",
+  disabled,
+  register,
+  error,
+}) {
   return (
     <div className="flex flex-col gap-2 flex-1 my-3 ">
       <label>{label}</label>
@@ -9,6 +16,7 @@ function UpdateFormInput({ label, value, type = "text", disabled, register }) {
         type={type}
         {...register}
       />
+      {error && <p className="text-red-600 ">{error}</p>}
     </div>
   );
 }

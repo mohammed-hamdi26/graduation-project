@@ -1,11 +1,22 @@
 /** @type {import('next').NextConfig} */
+
+import createNextIntPlugin from "next-intl/plugin";
+const withNextIntl = createNextIntPlugin("./i18n.js");
+
 const nextConfig = {
+  // Optional: detects from browser
+
   async redirects() {
     return [
       // Basic redirect
       {
-        source: "/dashboard",
-        destination: "/dashboard/home",
+        source: "/en/dashboard",
+        destination: "/en/dashboard/home",
+        permanent: true,
+      },
+      {
+        source: "/ar/dashboard",
+        destination: "/ar/dashboard/home",
         permanent: true,
       },
     ];
@@ -20,6 +31,8 @@ const nextConfig = {
       },
     ],
   },
+
+  devIndicators: false,
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

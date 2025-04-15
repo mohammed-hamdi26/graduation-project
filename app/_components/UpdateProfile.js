@@ -6,8 +6,10 @@ import UpadteFormInput from "./UpdateFormInput";
 import { Controller, useForm } from "react-hook-form";
 import { editUser } from "../_lib/actions";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 function UpdateProfile({ user }) {
+  const t = useTranslations("profile");
   const [disabled, setDisabled] = useState(true);
 
   const { handleSubmit, formState, register, control } = useForm({
@@ -22,25 +24,30 @@ function UpdateProfile({ user }) {
       id: user.id,
     };
     console.log(updatedData);
-    setDisabled(true);
-    const res = await editUser(updatedData);
+    try {
+      setDisabled(true);
+      const res = await editUser(updatedData);
 
-    setDisabled(false);
-    toast.success("Data updated successfully");
+      setDisabled(false);
+      toast.success("Data updated successfully");
+    } catch {
+      setDisabled(false);
+      toast.error("Data not updated");
+    }
   }
   return (
     <form onSubmit={handleSubmit(submit)} className="pt-4    ">
       <FormRow>
         <UpadteFormInput
           disabled={disabled}
-          label={"First name"}
+          label={t("First name")}
           value={user.first_name}
           register={register("first_name")}
         />
 
         <UpadteFormInput
           disabled={disabled}
-          label={"Last name"}
+          label={t("Last name")}
           value={user.last_name}
           register={register("last_name")}
         />
@@ -48,9 +55,15 @@ function UpdateProfile({ user }) {
       <FormRow>
         <UpdateFormInput
           disabled={disabled}
-          label={"Phone number"}
+          error={formState.errors?.phone?.message}
+          label={t("Phone number")}
           value={user.phone}
-          register={register("phone")}
+          register={register("phone", {
+            pattern: {
+              value: /^(\+20|0)1[0-25]\d{8}$/,
+              message: "Invalid phone number",
+            },
+          })}
         />
       </FormRow>
       <div className="flex justify-end gap-3 mt-3">
@@ -62,7 +75,7 @@ function UpdateProfile({ user }) {
             }}
             className="bg-second-main p-2 px-4 rounded-full text-white"
           >
-            Edit Data
+            {t("Edit Data")}
           </button>
         ) : (
           <>
@@ -70,7 +83,7 @@ function UpdateProfile({ user }) {
               type="submit"
               className="bg-second-main p-2 px-4 rounded-full text-white"
             >
-              update data
+              {t("update data")}
             </button>
             <button
               onClick={() => {
@@ -78,7 +91,7 @@ function UpdateProfile({ user }) {
               }}
               className="bg-gray-400 p-2 px-4 rounded-full text-white"
             >
-              Cancel
+              {t("Cancel")}
             </button>
           </>
         )}

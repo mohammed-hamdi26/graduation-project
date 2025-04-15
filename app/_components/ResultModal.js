@@ -1,14 +1,43 @@
 "use client";
+import { format } from "date-fns";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { uploadPhoto } from "../_lib/actions";
+import { useTranslations } from "next-intl";
 
 function ResultModal({
   typeCancer,
   confidenceScore,
   image,
   checkAgain,
-  uploadPhoto,
+  isSubmitting,
+  setIsSubmitting,
+  id,
 }) {
+  const { handleSubmit } = useForm();
+  const t = useTranslations("image-preview");
+
+  async function submit() {
+    const formData = new FormData();
+    formData.append("uploader", id);
+    formData.append("photo", image);
+    formData.append("confidence_score", confidenceScore);
+    formData.append("submitted_date", format(new Date(), "yyyy-MM-dd"));
+
+    try {
+      setIsSubmitting(true);
+      const res = await uploadPhoto(formData);
+      console.log(res);
+      toast.success("Image uploaded successfully");
+      setIsSubmitting(false);
+    } catch (e) {
+      setIsSubmitting(false);
+      console.log(e);
+      toast.error("there error in uploading the image");
+    }
+  }
   return (
     <motion.div
       initial={{ scale: 0 }}
@@ -28,25 +57,28 @@ function ResultModal({
       </div>
       <div className="flex justify-between text-xl text-white gap-4">
         <p className="bg-second-main bg-opacity-50 p-2 rounded-md">
-          type of {typeCancer}{" "}
+          {t("type of Cancer")} {typeCancer}{" "}
         </p>
         <p className="bg-second-main bg-opacity-50 p-2 rounded-md">
-          Confidence Score : {confidenceScore}
+          {t("Confidence Score")} : {confidenceScore}
         </p>
       </div>
       <div className="flex justify-between text-2xl font-bold ">
         <button
-          className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500"
+          disabled={isSubmitting}
+          className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
           onClick={checkAgain}
         >
-          check another image
+          {t("check another image")}
         </button>
-        <button
-          className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500"
-          onClick={uploadPhoto}
-        >
-          save the result
-        </button>
+        <form onSubmit={handleSubmit(submit)}>
+          <button
+            disabled={isSubmitting}
+            className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
+          >
+            {t("save the result")}
+          </button>
+        </form>
       </div>
     </motion.div>
   );

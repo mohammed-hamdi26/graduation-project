@@ -9,11 +9,14 @@ import ResultModal from "./ResultModal";
 
 import { checkModel, uploadPhoto, useModel } from "../_lib/actions";
 import toast from "react-hot-toast";
+import { format } from "date-fns";
+import { useTranslations } from "next-intl";
 
-function ImagePreview({ children, savePredict }) {
+function ImagePreview({ children, savePredict, user }) {
   const [image, setImage] = useState(null);
   const [isImageChecked, setIsImageChecked] = useState(false);
   const [predict, setPredict] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -27,6 +30,7 @@ function ImagePreview({ children, savePredict }) {
     predictPhoto.append("image", image);
 
     try {
+      setIsSubmitting(true);
       const predict = await checkModel(predictPhoto);
 
       setIsImageChecked(true);
@@ -37,7 +41,9 @@ function ImagePreview({ children, savePredict }) {
           cancer_type: "Skin Cancer",
           cancer_photo: image,
         });
+      setIsSubmitting(false);
     } catch (e) {
+      setIsSubmitting(false);
       console.log(e);
       toast.error("there error in Predicting the image");
     }
@@ -48,25 +54,15 @@ function ImagePreview({ children, savePredict }) {
     setImage(null);
   };
 
-  async function uploadPhoto() {
-    const formData = new FormData();
-    formData.append("Uploader", 1);
-    formData.append("image", image);
-    try {
-      const res = await uploadPhoto(formData);
-      console.log(res);
-      toast.success("Image uploaded successfully");
-    } catch (e) {
-      console.log(e);
-      toast.error("there error in uploading the image");
-    }
-  }
   return (
     <div className="flex flex-col  flex-1 space-y-4">
       <div class="flex justify-center items-center  w-full">
         {image && isImageChecked ? (
           <div className="flex flex-col items-center space-y-4">
             <ResultModal
+              id={user?.id}
+              isSubmitting={isSubmitting}
+              setIsSubmitting={setIsSubmitting}
               image={image}
               typeCancer={predict?.predicted_label}
               confidenceScore={Number(predict.confidence).toFixed(2)}
@@ -74,7 +70,6 @@ function ImagePreview({ children, savePredict }) {
                 setIsImageChecked(false);
                 setImage(null);
               }}
-              uploadPhoto={uploadPhoto}
             />
             {children}
           </div>

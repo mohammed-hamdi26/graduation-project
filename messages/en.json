@@ -1,0 +1,144 @@
+{
+  "home": {
+    "title": "Welcome to medical – Your First Step Toward Better Health",
+    "description": "We are here to provide you with reliable medical information and healthcare services to help you make informed decisions for your well-being and that of your loved ones. Because your health is our priority, we are with you every step of the way toward a healthier and happier life.",
+
+    "login": "Login",
+    "check yourself": "check yourself"
+  },
+  "login": {
+    "your email": "your email",
+    "your password": "your password",
+    "the field is required": "the field is required",
+    "Login": "Login",
+    "Don’t have an ccount?": "Don’t have an ccount?",
+
+    "Fill out the form please": "Fill out the form please"
+  },
+  "modals": {
+    "Skin cancer": "Skin cancer",
+    "lung Cancer": "lung Cancer",
+    "Colon cancer": "Colon cancer",
+    "Leukemia cancer": "Leukemia cancer",
+    "Modals": "Modals"
+  },
+  "image-preview": {
+    "Click to upload or drag and drop": "Click to upload or drag and drop",
+    "check yourself": "check yourself",
+    "Remove This Image": "Remove This Image",
+
+    "type of Cancer": "type of Cancer",
+    "Confidence Score": "Confidence Score",
+    "check another image": "check another image",
+    "save the result": "save the result",
+    "Go To Form": "Go To Form"
+  },
+  "form": {
+    "First Name": "First Name",
+    "Last Name": "Last Name",
+    "your email": "your Email",
+    "National ID": "National ID",
+    "age": "age",
+    "Choronic disease": "Choronic disease",
+    "phone": "phone",
+    "profile picture": "profile picture",
+    "create account": "create account",
+    "Already have an account": "Already have an account",
+    "complete the form": "complete the form",
+    "Log in": "Log in"
+  },
+  "nav": {
+    "home": "home",
+    "doctors": "doctors",
+    "patients": "patients",
+    "medical history": "medical history",
+    "check yourself": "check yourself",
+    "result": "result",
+    "Medication reminder": "Medication reminder",
+    "cancer-photos": "cancer-photos",
+    "contact us": "contact us"
+  },
+  "patient-home": {
+    "Good Evening": "Good Evening",
+    "Good Morning": "Good Morning",
+    "No Alarms": "No Alarms",
+    "Appointments": "Appointments",
+    "Activity Feed": "Activity Feed",
+    "No Medical History": "No Medical History",
+    "No Appointments": "No Appointments",
+    "improvement Rate": "improvement Rate"
+  },
+  "doctors": {
+    "Doctors": "Doctors",
+    "Doctor’s Name": "Doctor’s Name"
+  },
+  "doctor-page": {
+    "Department": "Department",
+    "no times": "no times",
+    "Confirm your booking": "Confirm your booking",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
+    "January": "January",
+    "February": "February",
+    "March": "March"
+  },
+  "Medical History": {
+    "Medical History": "Medical History",
+    "No Medical History": "No Medical History",
+    "Today": "Today"
+  },
+  "Medication reminder": {
+    "Medication reminder": "Medication reminder",
+    "Add Medication": "Add Medication",
+    "Time Pill": "Time Pill",
+    "pill Name": "pill Name",
+    "Medication not added": "Medication not added",
+    "Medication added successfully": "Medication added successfully"
+  },
+  "Cancer Photos": {
+    "Cancer Photos": "Cancer Photos",
+    "Confidence Score": "Confidence Score",
+    "Cancer": "Cancer"
+  },
+  "Contact us": {
+    "Contact us": "Contact us",
+    "Name": "Name",
+    "message": "message",
+    "Send": "Send"
+  },
+  "doctor-home": {
+    "Good Morning": "Good Morning",
+    "Good Evening": "Good Evening",
+    "Set Your Time availability": "Set Your Time availability",
+    "Selected Day": "Selected Day",
+    "Start Time": "Start Time",
+    "End Time": "End Time",
+    "Save": "Save"
+  },
+  "Patients": {
+    "Patients": "Patients",
+    "last instructions": "last instructions",
+    "male": "male",
+    "female": "female"
+  },
+  "profile": {
+    "Profile": "Profile",
+    "Personal Data": "Personal Data",
+    "Profile picture": "Profile picture",
+    "First name": "First name",
+    "Last name": "Last name",
+    "Phone number": "Phone number",
+    "Upload new picture": "Upload new picture",
+    "Edit Data": "Edit Data",
+    "update data": "update data",
+    "Save Photo": "حفظ الصورة",
+    "Cancel": "الغاء"
+  }
+}

@@ -3,8 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { useLocale, useTranslations } from "next-intl";
 function DoctorItem({ srcImage, doctorName, id, to }) {
-  const doctorHref = to ? `${to}/${id}` : `/dashboard/doctors/${id}`;
+  const t = useTranslations("doctors");
+  const local = useLocale();
+  const doctorHref = to
+    ? `/${local}/${to}/${id}`
+    : `/${local}/dashboard/doctors/${id}`;
   return (
     <Link href={doctorHref}>
       <motion.div
@@ -22,7 +27,7 @@ function DoctorItem({ srcImage, doctorName, id, to }) {
           />
         </div>
         <div className="absolute -bottom-full w-full bg-second-main bg-opacity-90 text-white transition-[bottom] duration-700 text-center py-10 rounded-b-lg group-hover:bottom-0 ">
-          <p className="font-medium text-lg">Doctor’s Name</p>
+          <p className="font-medium text-lg">{t("Doctor’s Name")}</p>
           <p className="font-bold text-2xl">{doctorName}</p>
         </div>
       </motion.div>

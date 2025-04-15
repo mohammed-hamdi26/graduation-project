@@ -1,12 +1,13 @@
 "use client";
 
-import { IoMdAdd } from "react-icons/io";
-import Modal from "./Modal";
-import Input from "./Input";
-import { CiLocationArrow1 } from "react-icons/ci";
-import { useContext, useState } from "react";
+import { format } from "date-fns";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { CiLocationArrow1 } from "react-icons/ci";
+import { IoMdAdd } from "react-icons/io";
 import { sendHistory } from "../_lib/actions";
+import Input from "./Input";
+import Modal from "./Modal";
 
 function ModalAddPreviosHistory({ docID, patientID }) {
   const [isSending, setIsSending] = useState(false);
@@ -23,11 +24,15 @@ function ModalAddPreviosHistory({ docID, patientID }) {
       message: data.message,
       sender: docID,
       reciever: patientID,
+      time: format(new Date(), "hh:mm:ss"),
+      date: format(new Date(), "yyyy-MM-dd"),
+      image: null,
+      receiver: patientID,
     };
     setIsSending(true);
     await sendHistory(sendData);
     setIsSending(false);
-    close();
+
     reset();
   };
   return (

@@ -7,7 +7,7 @@ import Image from "next/image";
 
 import bg from "@/public/homeBackGround.png";
 import bg2 from "@/public/homebackground2.jpeg";
-import bg3 from "@/public/homebackground3.jpg";
+import bg3 from "@/public/homeBackGround3.jpg";
 
 function WelcomePageBackground() {
   const photos = [bg, bg2, bg3];

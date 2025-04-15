@@ -1,13 +1,14 @@
+import { getUploadedPhotos } from "../_lib/data-service";
 import CancerPhotoItem from "./CancerPhotoItem";
 
-function CancerPhotosContainer() {
+async function CancerPhotosContainer({ photos }) {
+  const uploadedImages = await getUploadedPhotos();
+  console.log(uploadedImages);
   return (
-    <div className="grid gap-7 grid-cols-3">
-      <CancerPhotoItem />
-      <CancerPhotoItem />
-      <CancerPhotoItem />
-      <CancerPhotoItem />
-      <CancerPhotoItem />
+    <div className="grid gap-7 grid-cols-1  md:grid-cols-2 lg:grid-cols-3">
+      {uploadedImages.map((image) => (
+        <CancerPhotoItem key={image.id} image={image} />
+      ))}
     </div>
   );
 }

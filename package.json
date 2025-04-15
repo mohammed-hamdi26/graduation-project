@@ -3,32 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack ",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@date-fns/tz": "^1.2.0",
+    "@emailjs/browser": "^4.4.1",
     "@nextui-org/spinner": "^2.0.34",
     "axios": "^1.7.8",
     "date-fns": "^4.1.0",
     "jose": "^5.9.6",
     "motion": "^11.11.17",
-    "next": "15.0.2",
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "next": "15.2.3",
+    "next-intl": "^4.0.2",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-hook-form": "^7.53.2",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.3.0",
     "react-spinners": "^0.14.1",
     "recharts": "^2.13.3",
     "swiper": "^11.1.14",
+    "use-sound": "^5.0.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "15.0.2",
+    "eslint-config-next": "15.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
   }

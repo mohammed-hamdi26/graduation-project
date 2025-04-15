@@ -3,6 +3,7 @@ import AppointmentBox from "./AppointmentBox";
 import { filterUnBookedAppointments } from "../_lib/helps";
 
 function AppointmentContainer({
+  t,
   availability,
   setSelectedBookTime,
   selectedBook,
@@ -44,7 +45,7 @@ function AppointmentContainer({
     </div>
   ) : (
     <p className="flex text-2xl font-bold text-second-main uppercase  justify-center">
-      no times
+      {t("no times")}
     </p>
   );
 }

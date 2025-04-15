@@ -17,13 +17,18 @@ import Button from "./Button";
 import DateBox from "./DateBox";
 import { bookAppointment } from "../_lib/actions";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 function Calender({ availability, docID, userID, bookedAppointments }) {
+  const t = useTranslations("doctor-page");
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
 
   const currentDate = getDateWithOutTime(new Date());
+
+  const [isBooking, setIsBooking] = useState(false);
 
   const [selectedDay, setSelectedDay] = useState(currentDate);
 
@@ -50,7 +55,7 @@ function Calender({ availability, docID, userID, bookedAppointments }) {
     <div className="bg-white w-full  lg:w-96 h-fit p-6 flex flex-col justify-between gap-8 rounded-lg">
       <div className="space-y-4">
         <h3 className="text-2xl text-second-main font-bold">
-          {format(currentDate, "MMMM")}
+          {t(format(currentDate, "MMMM"))}
         </h3>
         <Swiper
           spaceBetween={24}
@@ -81,6 +86,7 @@ function Calender({ availability, docID, userID, bookedAppointments }) {
         </Swiper>
       </div>
       <AppointmentContainer
+        t={t}
         bookedAppointments={bookedAppointments}
         setSelectedBookTime={setSelectedBookTime}
         availability={availability}
@@ -88,6 +94,7 @@ function Calender({ availability, docID, userID, bookedAppointments }) {
         selectedDay={selectedDay}
       />
       <Button
+        disabled={isBooking}
         className="rounded-lg"
         onClick={async () => {
           const data = {
@@ -96,10 +103,18 @@ function Calender({ availability, docID, userID, bookedAppointments }) {
             time: format(selectedBookTime, "hh:mm:ss"),
             patient: userID,
           };
-          await bookAppointment(data);
+          try {
+            setIsBooking(true);
+            await bookAppointment(data);
+            toast.success("success booking");
+            setIsBooking(false);
+          } catch (e) {
+            setIsBooking(false);
+            toast.error("error in booking");
+          }
         }}
       >
-        Confirm your booking
+        {t("Confirm your booking")}
       </Button>
     </div>
   );

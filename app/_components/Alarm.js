@@ -6,11 +6,25 @@ import {
   differenceInSeconds,
   set,
 } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TZDate } from "@date-fns/tz";
+import useSound from "use-sound";
+import { useTranslations } from "next-intl";
+
 TZDate.tz("Africa/Cairo");
 function Alarm({ medicalTime, className }) {
-  if (!medicalTime) return <div>No medical</div>;
+  const t = useTranslations("patient-home");
+  if (!medicalTime)
+    return (
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        className={`font-bold flex flex-col justify-center text-second-main ${className}`}
+      >
+        <p className="text-7xl">{t("No Alarms")}</p>
+      </motion.div>
+    );
+
   const date = new TZDate();
 
   const [currentDate, setCurrentDate] = useState(
@@ -44,31 +58,33 @@ function Alarm({ medicalTime, className }) {
     };
   }, []);
   return (
-    <motion.div
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      className={`font-bold flex flex-col justify-center text-second-main ${className}`}
-    >
-      <p className="text-3xl ">Alarm For :</p>
-      <p className="text-7xl">Panadol</p>
-      <div className="flex gap-2 text-7xl">
-        <p className=" flex items-center flex-col">
-          {hours <= 9 ? `0${hours}` : hours}
-          <span className="text-xl">Hours</span>
-        </p>
-        <p className="">:</p>
-        <p className=" flex items-center flex-col">
-          {minutes <= 9 ? `0${minutes}` : minutes}
-          <span className="text-xl">minutes</span>
-        </p>
-        <p className="">:</p>
-        <p className=" flex items-center flex-col">
-          {seconds <= 9 ? `0${seconds}` : seconds}
-          <span className="text-xl">seconds</span>
-        </p>
-      </div>
-    </motion.div>
-    // <></>
+    <>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        className={`font-bold flex flex-col justify-center text-second-main ${className}`}
+      >
+        <p className="text-3xl ">Alarm For :</p>
+        <p className="text-7xl">Panadol</p>
+        <div className="flex gap-2 text-7xl">
+          <p className=" flex items-center flex-col">
+            {hours <= 9 ? `0${hours}` : hours}
+            <span className="text-xl">Hours</span>
+          </p>
+          <p className="">:</p>
+          <p className=" flex items-center flex-col">
+            {minutes <= 9 ? `0${minutes}` : minutes}
+            <span className="text-xl">minutes</span>
+          </p>
+          <p className="">:</p>
+          <p className=" flex items-center flex-col">
+            {seconds <= 9 ? `0${seconds}` : seconds}
+            <span className="text-xl">seconds</span>
+          </p>
+        </div>
+      </motion.div>
+      {/* <AlarmAudio ref={ref} /> */}
+    </>
   );
 }
 
