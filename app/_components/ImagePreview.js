@@ -1,15 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import Button from "./Button";
-import UploadImage from "./UploadImage";
-import TheUploadedImage from "./TheUploadedImage";
 import ResultModal from "./ResultModal";
+import TheUploadedImage from "./TheUploadedImage";
+import UploadImage from "./UploadImage";
 
-import { checkModel, uploadPhoto, useModel } from "../_lib/actions";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
-import { format } from "date-fns";
+import { checkModel } from "../_lib/actions";
 import { useTranslations } from "next-intl";
 
 function ImagePreview({ children, savePredict, user }) {
@@ -18,6 +16,9 @@ function ImagePreview({ children, savePredict, user }) {
   const [predict, setPredict] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const params = useSearchParams();
+
+  const t = useTranslations("image-preview");
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setImage(e.target.files[0]);
@@ -28,6 +29,7 @@ function ImagePreview({ children, savePredict, user }) {
     const predictPhoto = new FormData();
 
     predictPhoto.append("image", image);
+    predictPhoto.append("cancer_type", params.get("type"));
 
     try {
       setIsSubmitting(true);
@@ -38,7 +40,7 @@ function ImagePreview({ children, savePredict, user }) {
       if (savePredict)
         savePredict({
           cancer_percentage: predict.confidence.toFixed(2),
-          cancer_type: "Skin Cancer",
+          cancer_type: predict?.prediction,
           cancer_photo: image,
         });
       setIsSubmitting(false);
@@ -64,14 +66,22 @@ function ImagePreview({ children, savePredict, user }) {
               isSubmitting={isSubmitting}
               setIsSubmitting={setIsSubmitting}
               image={image}
-              typeCancer={predict?.predicted_label}
-              confidenceScore={Number(predict.confidence).toFixed(2)}
+              typeCancer={predict?.prediction}
+              confidenceScore={Number(predict?.confidence).toFixed(2)}
               checkAgain={() => {
                 setIsImageChecked(false);
                 setImage(null);
               }}
             />
-            {children}
+            {predict?.prediction == "Colon benign" ||
+            predict?.prediction == "Lung benign tissue" ||
+            predict?.prediction == "Benign" ? (
+              <div className="text-2xl text-second-main font-bold">
+                {t("Thank God, the tumor is benign")} 🥰
+              </div>
+            ) : (
+              children
+            )}
           </div>
         ) : (
           image && (

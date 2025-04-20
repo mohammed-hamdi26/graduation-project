@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { uploadPhoto } from "../_lib/actions";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 function ResultModal({
   typeCancer,
@@ -18,7 +19,7 @@ function ResultModal({
 }) {
   const { handleSubmit } = useForm();
   const t = useTranslations("image-preview");
-
+  const pathname = usePathname();
   async function submit() {
     const formData = new FormData();
     formData.append("uploader", id);
@@ -45,7 +46,7 @@ function ResultModal({
       className=" p-4 rounded-lg w-[650px] space-y-6"
     >
       <h2 className="text-4xl text-second-main uppercase font-semibold text-center">
-        the result
+        {t("the result")}
       </h2>
       <div className="relative w-full  max-w-[450px] h-[300px] mx-auto">
         <Image
@@ -63,7 +64,11 @@ function ResultModal({
           {t("Confidence Score")} : {confidenceScore}
         </p>
       </div>
-      <div className="flex justify-between text-2xl font-bold ">
+      <div
+        className={`flex ${
+          !pathname.includes("modals") ? "justify-between" : "justify-center"
+        }  text-2xl font-bold `}
+      >
         <button
           disabled={isSubmitting}
           className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
@@ -71,14 +76,16 @@ function ResultModal({
         >
           {t("check another image")}
         </button>
-        <form onSubmit={handleSubmit(submit)}>
-          <button
-            disabled={isSubmitting}
-            className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
-          >
-            {t("save the result")}
-          </button>
-        </form>
+        {!pathname.includes("modals") && (
+          <form onSubmit={handleSubmit(submit)}>
+            <button
+              disabled={isSubmitting}
+              className="bg-second-main p-2 px-4 rounded-md text-white uppercase hover:bg-opacity-70 transition-all duration-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
+            >
+              {t("save the result")}
+            </button>
+          </form>
+        )}
       </div>
     </motion.div>
   );

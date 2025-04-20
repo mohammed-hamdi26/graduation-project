@@ -18,24 +18,28 @@ export default async function page() {
         <ModalBox
           imageSrc={skinCancerBg}
           href={`/${local}/dashboard/check-yourself/check`}
+          modalType="skin"
         >
           {t("Skin cancer")}
         </ModalBox>
         <ModalBox
           imageSrc={lungCancerBg}
           href={`/${local}/dashboard/check-yourself/check`}
+          modalType="lung"
         >
           {t("lung Cancer")}
         </ModalBox>
         <ModalBox
           imageSrc={ColonCancerBg}
           href={`/${local}/dashboard/check-yourself/check`}
+          modalType="colon"
         >
           {t("Colon cancer")}
         </ModalBox>
         <ModalBox
           imageSrc={LeukemiaCancer}
           href={`/${local}/dashboard/check-yourself/check`}
+          modalType="leukemia"
         >
           {t("Leukemia cancer")}
         </ModalBox>

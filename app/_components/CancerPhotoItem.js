@@ -14,7 +14,7 @@ async function CancerPhotoItem({ image }) {
         <p className="font-bold text-3xl text-second-main">Cancer</p>
         <div className="flex gap-5 text-xl text-paragraph">
           <p>{t("Confidence Score")}</p>
-          <p>90%</p>
+          <p>{image.confidence_score}%</p>
         </div>
         <p className="text-paragraph text-xl">
           {" "}

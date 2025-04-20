@@ -5,7 +5,8 @@ function NavItem({ link, path, isNavOpen, t }) {
     <li
       key={link.name}
       className={`${
-        path === link.href || path.includes(link.href)
+        String(path).trim() == String(link.href).trim() ||
+        path.includes(link.href)
           ? "bg-second-main bg-opacity-30 text-second-main hover:bg-opacity-30"
           : "text-[#64748B] hover:bg-gray-200"
       }  px-4 py-3 rounded-full transition-[background-color] duration-500 `}

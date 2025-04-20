@@ -3,7 +3,7 @@ import { getUploadedPhotos, getUser } from "@/app/_lib/data-service";
 import { getTranslations } from "next-intl/server";
 
 export default async function page() {
-  // const user = await getUser();
+  const user = await getUser();
   const t = await getTranslations("Cancer Photos");
 
   return (
@@ -11,7 +11,7 @@ export default async function page() {
       <h2 className="text-second-main text-4xl font-bold  capitalize flex flex-col">
         {t("Cancer Photos")}
       </h2>
-      <CancerPhotosContainer />
+      <CancerPhotosContainer id={user?.id} />
     </div>
   );
 }

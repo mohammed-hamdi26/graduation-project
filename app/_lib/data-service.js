@@ -68,7 +68,7 @@ export async function getDoctorAvailability(id, day) {
     }
     return typeof res.data === "object" ? res.data : [];
   } catch (err) {
-    console.log(err.response);
+    console.log(err.message);
     throw new Error(err);
   }
 }

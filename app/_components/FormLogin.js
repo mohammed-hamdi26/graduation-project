@@ -33,8 +33,8 @@ function FormLogin() {
           setIsLoading(false);
 
           toast.success("success login");
-          redirect("/dashboard");
         } catch (e) {
+          console.log(e);
           toast.error("error in login");
           setIsLoading(false);
         }

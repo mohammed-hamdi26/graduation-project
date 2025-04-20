@@ -59,6 +59,7 @@ function UpdateProfile({ user }) {
           label={t("Phone number")}
           value={user.phone}
           register={register("phone", {
+            required: "Phone number is required",
             pattern: {
               value: /^(\+20|0)1[0-25]\d{8}$/,
               message: "Invalid phone number",

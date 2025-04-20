@@ -31,7 +31,9 @@
     "Confidence Score": "Confidence Score",
     "check another image": "check another image",
     "save the result": "save the result",
-    "Go To Form": "Go To Form"
+    "Go To Form": "Go To Form",
+    "the result": "the result",
+    "Thank God, the tumor is benign": "Thank God, the tumor is benign"
   },
   "form": {
     "First Name": "First Name",
@@ -56,7 +58,10 @@
     "result": "result",
     "Medication reminder": "Medication reminder",
     "cancer-photos": "cancer-photos",
-    "contact us": "contact us"
+    "contact us": "contact us",
+    "Hallo": "Hallo",
+    "Patient": "Patient",
+    "Doctor": "Doctor"
   },
   "patient-home": {
     "Good Evening": "Good Evening",

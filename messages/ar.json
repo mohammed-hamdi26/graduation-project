@@ -28,7 +28,9 @@
     "Confidence Score": "نسبة الثقة",
     "check another image": "تحقق من صورة أخرى",
     "save the result": "احفظ النتيجة",
-    "Go To Form": "الذهاب للتسجيل"
+    "Go To Form": "الذهاب للتسجيل",
+    "the result": "النتيجة",
+    "Thank God, the tumor is benign": "الحمدلله الورم حميد"
   },
   "from": {
     "First Name": "الاسم الأول",
@@ -53,7 +55,10 @@
     "result": "النتيجة",
     "Medication reminder": "تذكير الدواء",
     "cancer-photos": "صور السرطان",
-    "contact us": "اتصل بنا"
+    "contact us": "اتصل بنا",
+    "Hallo": "اهلا",
+    "Patient": "مريض",
+    "Doctor": "طبيب"
   },
   "patient-home": {
     "Good Evening": "مساء الخير",

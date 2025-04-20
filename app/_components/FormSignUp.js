@@ -13,6 +13,7 @@ import Button from "./Button";
 import FormRow from "./FormRow";
 import ImageInput from "./ImageInput";
 import { useTranslations } from "next-intl";
+import Spinner from "./Spinner";
 
 function FormSignUp() {
   const t = useTranslations("from");
@@ -75,7 +76,7 @@ function FormSignUp() {
           register={register("last_name", {
             required: "Last name is required",
           })}
-          label="Last Name"
+          label={t("Last Name")}
           type="text"
           error={errors?.last_name?.message ?? null}
           disabled={isSubmitting}
@@ -149,7 +150,10 @@ function FormSignUp() {
         />
       </FormRow>
       <div className="flex items-center justify-between">
-        <Button className="w-full">{t("create account")}</Button>
+        <Button className="w-full" disabled={isSubmitting}>
+          {" "}
+          {isSubmitting ? <Spinner /> : t("create account")}
+        </Button>
       </div>
     </motion.form>
   );

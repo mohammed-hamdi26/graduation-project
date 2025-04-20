@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 import createNextIntPlugin from "next-intl/plugin";
-const withNextIntl = createNextIntPlugin("./i18n.js");
+const withNextIntl = createNextIntPlugin();
 
 const nextConfig = {
   // Optional: detects from browser
@@ -9,6 +9,16 @@ const nextConfig = {
   async redirects() {
     return [
       // Basic redirect
+      {
+        source: "/",
+        destination: "/ar",
+        permanent: true,
+      },
+      {
+        source: "/",
+        destination: "/en",
+        permanent: true,
+      },
       {
         source: "/en/dashboard",
         destination: "/en/dashboard/home",
