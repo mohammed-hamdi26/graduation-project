@@ -34,6 +34,7 @@ function AppointmentContainer({
     <div className="grid grid-cols-3 gap-4 justify-center">
       {filteredAppointments.map((appointment) => (
         <AppointmentBox
+          t={t}
           key={appointment}
           appointment={appointment}
           onSelect={() => {

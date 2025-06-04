@@ -12,14 +12,22 @@ async function NavProfileItem() {
       <div className=" relative w-12 h-12 rounded-full overflow-hidden">
         <Image
           className="object-cover object-right-top"
-          src={`${process.env.APi_URL}/${user.profile_picture}`}
+          src={
+            user.staff
+              ? user.doc_img
+                ? `${process.env.APi_URL}${user.doc_img}`
+                : ""
+              : user.profile_picture
+              ? `${process.env.APi_URL}${user.profile_picture}`
+              : ""
+          }
           fill
           alt=""
         />
       </div>
       <div className="hidden  md:block flex-1">
         <h3 className=" text-sm md:text-base font-medium">
-          {t("Hallo")}, {user.first_name} 👋
+          {t("Hallo")}, {user.staff ? user.doc_first_name : user.first_name} 👋
         </h3>
         <p className=" text-sm text-[#64748B]">
           {user.staff ? t("Doctor") : t("Patient")}{" "}

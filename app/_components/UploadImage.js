@@ -33,7 +33,7 @@ function UploadImage({ imageChange }) {
       <input
         id="dropzone-file"
         type="file"
-        class="hidden"
+        className="hidden"
         onChange={imageChange}
       />
     </label>

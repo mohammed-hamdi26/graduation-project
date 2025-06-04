@@ -11,6 +11,7 @@ import { login } from "../_lib/actions";
 import Button from "./Button";
 import Input from "./Input";
 import Spinner from "./Spinner";
+import NavLogo from "./NavLogo";
 
 function FormLogin() {
   const t = useTranslations("login");
@@ -29,21 +30,28 @@ function FormLogin() {
       onSubmit={handleSubmit(async (data) => {
         try {
           setIsLoading(true);
-          const res = await login(data);
+          await login(data);
           setIsLoading(false);
 
           toast.success("success login");
         } catch (e) {
-          console.log(e);
-          toast.error("error in login");
+          if (!e.toString().includes("Error: NEXT_REDIRECT")) {
+            toast.error(t("the email or password is wrong"));
+          } else {
+            toast.success("success login");
+          }
+
           setIsLoading(false);
         }
       })}
       className="bg-white  px-9 py-12 rounded-3xl w-full md:w-2/5 space-y-6"
     >
       <div className="text-center space-y-3">
-        <h2 className=" text-2xl sm:text-5xl font-bold">{t("Login")}</h2>
-        <p className="text-sm sm:text-base">
+        <NavLogo size={"size-28"} />
+        <h2 className=" text-2xl sm:text-5xl font-bold text-second-main">
+          {t("Login")}
+        </h2>
+        <p className="text-sm sm:text-base text-gray-500">
           {t("Don’t have an ccount?")}{" "}
           <Link
             href={`/${local}/modals`}
@@ -78,12 +86,18 @@ function FormLogin() {
           //     /^(?=.*[A-Z])[A-Z](?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/,
           // },
           required: t("the field is required"),
-          // minLength: {
-          //   message: "the min lenght is 8",
-          //   value: 8,
-          // },
+          minLength: {
+            message: t("the min length is 8"),
+            value: 8,
+          },
         })}
       />
+      <Link
+        href={`/${local}/forget-password`}
+        className="block text-sm sm:text-base text-gray-500 hover:underline "
+      >
+        {t("forget password?")}
+      </Link>
       <Button className="w-full py-4" disabled={isLoading}>
         {" "}
         {isLoading ? <Spinner /> : t("Login")}

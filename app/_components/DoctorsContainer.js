@@ -8,7 +8,9 @@ function DoctorsContainer({ doctors, to }) {
         <DoctorItem
           to={to}
           key={doctor.id}
-          srcImage={`${process.env.API_URL}${doctor.img}`}
+          srcImage={
+            doctor.doc_img ? `${process.env.API_URL}${doctor.doc_img}` : ""
+          }
           doctorName={`${doctor.doc_first_name} ${doctor.doc_last_name}`}
           id={doctor.user}
         />

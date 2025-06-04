@@ -5,9 +5,14 @@ import { addAvailability } from "../_lib/actions";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { TimePicker } from "antd";
+import toast from "react-hot-toast";
 function AvailabilityDoctorTime({ docID }) {
   const [isLoading, setIsLoading] = useState(false);
-
+  const [selectedTime, setSelectedTime] = useState({
+    start_time: "",
+    end_time: "",
+  });
   const t = useTranslations("doctor-home");
 
   const { formState, handleSubmit, register } = useForm();
@@ -21,17 +26,16 @@ function AvailabilityDoctorTime({ docID }) {
       ...data,
       department: "اخصائي سكر الاطفال",
       doctor: docID,
-      start_time: `${data.start_time}:00`,
-      end_time: `${data.end_time}:00`,
+      ...selectedTime,
     };
     try {
       setIsLoading(true);
       const res = await addAvailability(sendDate);
-
+      toast.success(t("Availability added successfully"));
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
-
+      toast.error(t("Error in adding availability"));
       console.log(e);
     }
   }
@@ -39,7 +43,7 @@ function AvailabilityDoctorTime({ docID }) {
   return (
     <div className="bg-second-main p-4 rounded-lg flex-1 space-y-4 h-fit text-white">
       <h3 className="text-3xl font-bold">{t("Set Your Time availability")}</h3>
-      <form onSubmit={handleSubmit(submit)} className="space-y-4">
+      <form onSubmit={handleSubmit(submit)} className="space-y-4 ">
         <div className="flex flex-col gap-2">
           <label className="text-2xl font-bold">{t("Selected Day")}</label>
 
@@ -54,7 +58,7 @@ function AvailabilityDoctorTime({ docID }) {
             ))}
           </select>
         </div>
-        <div className="flex gap-3 ">
+        {/* <div className="flex gap-3 ">
           <div className="flex flex-col gap-2 flex-1">
             <label className="text-2xl font-bold">{t("Start Time")}</label>
             <input
@@ -73,7 +77,20 @@ function AvailabilityDoctorTime({ docID }) {
               className="text-black px-4 py-2 rounded-lg"
             />
           </div>
-        </div>
+        </div> */}
+        <TimePicker.RangePicker
+          form="HH:mm:ss"
+          className="w-full text-2xl font-bold focus:border-second-main"
+          size="large"
+          disabledTime={() => ({ disabled: true })}
+          onChange={(time, timeString) => {
+            // console.log(time, timeString);
+            setSelectedTime({
+              start_time: timeString[0],
+              end_time: timeString[1],
+            });
+          }}
+        />
         <div className="flex ">
           <button
             disabled={isLoading}

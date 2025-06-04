@@ -10,6 +10,7 @@ import { createSession } from "./session";
 
 import { deleteSession } from "@/app/_lib/session";
 import { getLocale } from "next-intl/server";
+import { cookies } from "next/headers";
 
 export async function uploadPhoto(data) {
   console.log(data);
@@ -47,7 +48,7 @@ export async function login(formData) {
 
     await createSession(res.data.id);
   } catch (err) {
-    console.log(err);
+    console.log(err.response);
     throw new Error(err.message);
   }
   redirect(`/${local}/dashboard/home`);
@@ -71,7 +72,7 @@ export async function addUser(userData) {
         },
       }
     );
-    console.log(res);
+
     const user = res.data;
 
     // Current steps:
@@ -97,7 +98,7 @@ export async function editUser(updatedData) {
     revalidatePath(`/${local}/dashboard/profile`);
   } catch (err) {
     console.error(err.response);
-    throw new Error(err.message);
+    throw new Error(err);
   }
 }
 export async function editUserPhoto(data) {
@@ -211,4 +212,50 @@ export async function logout() {
 
   deleteSession();
   redirect(`/${local}/login`);
+}
+
+export async function forgetPassword(data) {
+  try {
+    const res = await axios.post(
+      `${process.env.APi_URL}/forgot-password/`,
+      data
+    );
+
+    return res;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+export async function verifyPassword(data) {
+  try {
+    const res = await axios.post(
+      `${process.env.APi_URL}/verify-reset-code/`,
+      data
+    );
+
+    (await cookies()).set("token", res.data.token);
+    return res;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+export async function resetPassword(data) {
+  try {
+    const token = (await cookies()).get("token");
+
+    const res = await axios.post(
+      `${process.env.APi_URL}/reset-password/`,
+      data,
+      {
+        headers: {
+          Authorization: `Token ${token.value}`,
+        },
+      }
+    );
+    return res;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.message);
+  }
 }

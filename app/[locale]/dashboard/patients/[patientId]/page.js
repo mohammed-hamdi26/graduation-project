@@ -15,7 +15,7 @@ export default async function page({ params }) {
   // const user = await getUser
 
   return (
-    <div className=" flex flex-col sm:flex-row gap-5   relative  h-full">
+    <div className=" flex flex-col flex-1 md:flex-row gap-5   relative  h-full">
       <PatientInfo patient={patient} />
       {user.staff && (
         <ModalAddPreviosHistory docID={user.id} patientID={param.patientId} />

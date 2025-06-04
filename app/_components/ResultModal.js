@@ -15,6 +15,7 @@ function ResultModal({
   checkAgain,
   isSubmitting,
   setIsSubmitting,
+  classification,
   id,
 }) {
   const { handleSubmit } = useForm();
@@ -25,12 +26,14 @@ function ResultModal({
     formData.append("uploader", id);
     formData.append("photo", image);
     formData.append("confidence_score", confidenceScore);
+    formData.append("cancer_type", typeCancer);
+    formData.append("classification", classification);
     formData.append("submitted_date", format(new Date(), "yyyy-MM-dd"));
 
     try {
       setIsSubmitting(true);
       const res = await uploadPhoto(formData);
-      console.log(res);
+
       toast.success("Image uploaded successfully");
       setIsSubmitting(false);
     } catch (e) {

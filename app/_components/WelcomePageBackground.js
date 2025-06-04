@@ -12,7 +12,7 @@ import bg3 from "@/public/homeBackGround3.jpg";
 function WelcomePageBackground() {
   const photos = [bg, bg2, bg3];
   return (
-    <div className="absolute -z-20 h-screen w-full">
+    <div className="absolute -z-20 h-dvh w-full">
       <Swiper
         className="relative h-full w-full"
         modules={[EffectFade, Autoplay]}

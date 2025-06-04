@@ -8,6 +8,7 @@ import { addMedication } from "../_lib/actions";
 import toast from "react-hot-toast";
 import { useLocale } from "next-intl";
 import { useTranslations } from "use-intl";
+import Spinner from "./Spinner";
 
 function ModalAddAlarm() {
   const local = useLocale();
@@ -15,13 +16,15 @@ function ModalAddAlarm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm();
 
   async function submit(data) {
     try {
       await addMedication(data);
       toast.success(t("Medication added successfully"));
+      reset();
     } catch (e) {
       toast.error(t("Medication not added"));
     }
@@ -30,7 +33,7 @@ function ModalAddAlarm() {
     <div
       className={`absolute ${
         local === "en" ? "left-5" : "right-5"
-      } bottom-5 w-full`}
+      } bottom-5 z-30 w-full`}
     >
       <Modal>
         <Modal.Open opens={"addMedication"}>
@@ -66,10 +69,20 @@ function ModalAddAlarm() {
               />
             </div>
             <div className="flex justify-end">
-              <button className="bg-second-main text-white p-2 rounded-lg text-2xl">
-                <CiLocationArrow1
+              <button
+                disabled={isSubmitting}
+                className="bg-second-main text-white p-2 rounded-lg text-2xl disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-500"
+              >
+                {!isSubmitting ? (
+                  <CiLocationArrow1
+                    className={`${local === "ar" && "rotate-[270deg]"}`}
+                  />
+                ) : (
+                  <Spinner size={20} />
+                )}
+                {/* <CiLocationArrow1
                   className={`${local === "ar" && "rotate-[270deg]"}`}
-                />
+                /> */}
               </button>
             </div>
           </form>

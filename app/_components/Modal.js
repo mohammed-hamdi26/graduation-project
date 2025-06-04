@@ -31,7 +31,7 @@ function Window({ children, name }) {
 
   if (name !== openName) return null;
   return (
-    <div className="bg-white px-6 py-4 w-4/12 rounded-lg shadow-lg shadow-gray-300 space-y-2 ">
+    <div className="bg-white px-6 py-4 w-4/12 rounded-lg shadow-lg  shadow-gray-300 space-y-2 ">
       <div className="flex justify-end">
         <IoClose
           className="text-3xl text-second-main cursor-pointer"

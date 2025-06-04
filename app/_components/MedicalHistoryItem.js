@@ -1,11 +1,12 @@
 "use client";
 import { format, isSameDay, isToday } from "date-fns";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { IoDocumentTextOutline } from "react-icons/io5";
 function MedicalHistoryItem({ info }) {
-  console.log(info);
+  const t = useTranslations("Medical History");
   const date = isToday(info.updated_at)
-    ? "Today"
+    ? t("Today")
     : format(info.updated_at, "EEEE dd LLL");
   return (
     <motion.div

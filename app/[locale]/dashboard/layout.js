@@ -9,7 +9,7 @@ export default async function layout({ children }) {
       <NavBar user={user}>
         <NavProfileItem />
       </NavBar>
-      <div className="bg-background h-full p-8 pt-24  overflow-x-hidden flex-1 relative grid grid-rows-[auto_1fr]  ">
+      <div className="bg-background h-full px-8  py-16  overflow-x-hidden flex-1 relative grid   ">
         <TopNavBar />
         {children}
       </div>

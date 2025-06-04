@@ -14,7 +14,7 @@ export default async function page({ params, searchParams }) {
   const { day } = await searchParams;
   const { doctorId } = await params;
   const doctor = await getDoctor(doctorId);
-  console.log(doctor);
+
   const calanderAvailability = await getDoctorAvailability(
     doctorId,
     day || format(new Date(), "yyyy-MM-dd")
@@ -23,13 +23,15 @@ export default async function page({ params, searchParams }) {
   const t = await getTranslations("doctor-page");
 
   const bookedAppointments = await getBookedAppointmentsForDoctor(doctorId);
-  console.log(bookedAppointments);
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col lg:flex-row gap-6">
         <div className=" w-full lg:w-[333px] h-[519px] relative">
           <Image
-            src={doctor.img ? `${process.env.APi_URL}${doctor.img}` : ""}
+            src={
+              doctor.doc_img ? `${process.env.APi_URL}${doctor.doc_img}` : ""
+            }
             fill
             className="object-cover rounded-lg"
             alt=""

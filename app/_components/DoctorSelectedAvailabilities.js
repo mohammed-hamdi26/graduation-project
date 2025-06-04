@@ -1,8 +1,9 @@
+import { getTranslations } from "next-intl/server";
 import { getDoctorAvailability } from "../_lib/data-service";
 
 async function DoctorSelectedAvailabilities({ docID }) {
   const availabilities = await getDoctorAvailability(docID);
-  console.log(availabilities);
+  const t = await getTranslations("doctor-home");
 
   return (
     <div
@@ -11,7 +12,7 @@ async function DoctorSelectedAvailabilities({ docID }) {
       }
     >
       <h3 className="text-xl text-white font-bold capitalize ">
-        Selected Times
+        {t("Selected Times")}
       </h3>
       {availabilities ? (
         <div className="grid grid-cols-3 gap-4">

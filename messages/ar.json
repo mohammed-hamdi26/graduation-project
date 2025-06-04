@@ -11,7 +11,15 @@
     "the field is required": "هذا الحقل مطلوب",
     "Login": "تسجيل الدخول",
     "Don’t have an ccount?": "ليس لديك حساب؟",
-    "Fill out the form please": "الرجاء ملء النموذج"
+    "Fill out the form please": "الرجاء ملء النموذج",
+    "the min length is 8": "الحد الادنى لطول هو ثمان حروف",
+    "male": "ذكر",
+    "female": "انثى",
+    "the email or password is wrong": "البريد الالكتروني او كلمة المرور غير صحيحة",
+    "could not add the user": "لم يتم اضافة المستخدم",
+    "hide": "اغلاق",
+    "show": "اظهار",
+    "forget password?": "نسيت كلمة المرور ؟"
   },
   "modals": {
     "Skin cancer": "سرطان الجلد",
@@ -32,7 +40,7 @@
     "the result": "النتيجة",
     "Thank God, the tumor is benign": "الحمدلله الورم حميد"
   },
-  "from": {
+  "form": {
     "First Name": "الاسم الأول",
     "Last Name": "اسم العائلة",
     "your email": "بريدك الإلكتروني",
@@ -44,7 +52,13 @@
     "create account": "انشاء حساب",
     "Already have an account": "لديك حساب بالفعل",
     "complete the form": "اكمل النموذج",
-    "Log in": "تسجيل الدخول"
+    "gender": "النوع",
+    "Log in": "تسجيل الدخول",
+    "the user is added": "تم اضافة المستخدم بنجاح",
+    "male": "ذكر",
+    "female": "انثى",
+    "the email or password is wrong": "البريد الالكتروني او كلمة المرور غير صحيحة",
+    "could not add the user": "لم يتم اضافة المستخدم"
   },
   "nav": {
     "home": "الصفحة الرئيسية",
@@ -89,7 +103,16 @@
     "December": "ديسمبر",
     "January": "يناير",
     "February": "فبراير",
-    "March": "مارس"
+    "March": "مارس",
+    "pm": "م",
+    "am": "ص",
+    "Thu": "الخميس",
+    "Wed": "الأربعاء",
+    "Tue": "الثلاثاء",
+    "Mon": "الاثنين",
+    "Sat": "السبت",
+    "Fri": "الجمعة",
+    "Sun": "الأحد"
   },
   "Medical History": {
     "Medical History": "سجل طبي",
@@ -102,11 +125,14 @@
     "Time Pill": "وقت تناول الدواء",
     "pill Name": "اسم الدواء",
     "Medication not added": "لم يتم اضافة الدواء",
-    "Medication added successfully": "تم اضافة الدواء بنجاح"
+    "Medication added successfully": "تم اضافة الدواء بنجاح",
+    "No Medications": "لا يوجد دواء"
   },
   "Cancer Photos": {
     "Cancer Photos": "صور السرطان",
-    "Confidence Score": "نسبة المرض"
+    "Confidence Score": "نسبة المرض",
+    "Classification": "التصنيف",
+    "No Cancer Photos": "لا يوجد صور سرطان"
   },
   "Contact us": {
     "Contact us": "اتصل بنا",
@@ -121,7 +147,10 @@
     "Selected Day": "اليوم المحدد",
     "Start Time": "وقت البدء",
     "End Time": "وقت الانتهاء",
-    "Save": "حفظ"
+    "Save": "حفظ",
+    "Error in adding availability": "حدث خطأ أثناء إضافة المواعيد المتاحة",
+    "Availability added successfully": "تمت إضافة المواعيد المتاحة بنجاح",
+    "Selected Times": "الأوقات المحددة"
   },
   "Patients": {
     "Patients": "المرضى",
@@ -141,5 +170,38 @@
     "update data": "تحديث البيانات",
     "Save Photo": "حفظ الصورة",
     "Cancel": "الغاء"
+  },
+  "forget-password": {
+    "Back to login": "العودة إلى تسجيل الدخول",
+    "description": "لا تقلق، يحدث للجميع. قم بادخال بريدك الإلكتروني للحصول على كلمة المرور",
+    "Email": "البريد الإلكتروني",
+    "Send": "إرسال",
+    "Forgot your password?": "نسيت كلمة المرور؟",
+    "Email is required": "البريد الإلكتروني مطلوب",
+    "Error in sending code": " خطاء في ارسال الرمز",
+    "Code sent successfully": " تم ارسال الرمز بنجاح"
+  },
+  "verify-code": {
+    "Back to login": "العودة إلى تسجيل الدخول",
+    "description": "تم إرسال رمز التحقق إلى بريدك الإلكتروني.",
+    "password": "كلمة المرور",
+    "Send": "إرسال",
+    "Verify code": "تحقق من الرمز",
+    "code": "رمز",
+    "code must be 6 digits": "الرمز يجب ان يكون 6 ارقام",
+    "code is required": "الرمز مطلوب",
+    "Code is incorrect": "Code is incorrect",
+    "Code is correct": "Code is correct"
+  },
+  "set-password": {
+    "Back to login": "العودة إلى تسجيل الدخول",
+    "description": "تمت إعادة تعيين كلمة المرور السابقة. يرجى تعيين كلمة مرور جديدة لحسابك.",
+    "Set password": "تعيين كلمة المرور",
+    "Send": "إرسال",
+    "Create Password": "إنشاء كلمة المرور",
+    "Re-enter Password": "أعد إدخال كلمة المرور",
+    "Password set successfully": "تم تعيين كلمة المرور بنجاح",
+    "Password not set": "كلمة المرور غير محددة",
+    "Code is correct": "الرمز صحيح"
   }
 }

@@ -5,7 +5,7 @@ import { editUserPhoto } from "../_lib/actions";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
-function ProfileImage({ image }) {
+function ProfileImage({ image, user }) {
   const t = useTranslations("profile");
   const [isLoading, setIsLoading] = useState(false);
   const { handleSubmit } = useForm();
@@ -18,7 +18,7 @@ function ProfileImage({ image }) {
 
   async function submit() {
     const formData = new FormData();
-    formData.append("profile_picture", newImage);
+    formData.append(user.staff ? "doc_img" : "profile_picture", newImage);
     try {
       setIsLoading(true);
       const res = await editUserPhoto(formData);
@@ -62,7 +62,7 @@ function ProfileImage({ image }) {
             onChange={handleImageChange}
             id="change-image"
             type="file"
-            class="hidden"
+            className="hidden"
           />
         </label>
       </form>

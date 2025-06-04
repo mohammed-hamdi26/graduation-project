@@ -1,4 +1,5 @@
 import ContactForm from "@/app/_components/ContactForm";
+import Spinner from "@/app/_components/Spinner";
 import { getUser } from "@/app/_lib/data-service";
 import { getTranslations } from "next-intl/server";
 

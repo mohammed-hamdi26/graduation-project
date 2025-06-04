@@ -57,3 +57,19 @@ export function getNearestDrug(drugs) {
 
   return nearestDate;
 }
+
+export function getTypeCancer(cancer) {
+  if (cancer === "Colon adenocarcinoma") return "Colon Cancer";
+  if (
+    cancer === "Malignant_early Pre-B" ||
+    cancer === "Malignant_Pro-B" ||
+    cancer === "Malignant_early"
+  )
+    return "Leukemia Cancer";
+  if (
+    cancer === "Lung adenocarcinoma" ||
+    cancer === "Lung squamous cell carcinoma"
+  )
+    return "Lung Cancer";
+  if (cancer === "Malignant") return "Skin Cancer";
+}

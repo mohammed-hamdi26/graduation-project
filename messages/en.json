@@ -13,7 +13,12 @@
     "Login": "Login",
     "Don’t have an ccount?": "Don’t have an ccount?",
 
-    "Fill out the form please": "Fill out the form please"
+    "Fill out the form please": "Fill out the form please",
+    "the min length is 8": "the min length is 8",
+    "the email or password is wrong": "the email or password is wrong",
+    "hide": "hide",
+    "show": "show",
+    "forget password?": "forget password?"
   },
   "modals": {
     "Skin cancer": "Skin cancer",
@@ -47,7 +52,12 @@
     "create account": "create account",
     "Already have an account": "Already have an account",
     "complete the form": "complete the form",
-    "Log in": "Log in"
+    "Log in": "Log in",
+    "gender": "gender",
+    "male": "male",
+    "female": "female",
+    "the email or password is wrong": "the email or password is wrong",
+    "could not add the user": "could not add the user"
   },
   "nav": {
     "home": "home",
@@ -92,7 +102,16 @@
     "December": "December",
     "January": "January",
     "February": "February",
-    "March": "March"
+    "March": "March",
+    "pm": "pm",
+    "am": "am",
+    "Thu": "Thu",
+    "Wed": "Wed",
+    "Tue": "Tue",
+    "Mon": "Mon",
+    "Sat": "Sat",
+    "Fri": "Fri",
+    "Sun": "Sun"
   },
   "Medical History": {
     "Medical History": "Medical History",
@@ -105,12 +124,15 @@
     "Time Pill": "Time Pill",
     "pill Name": "pill Name",
     "Medication not added": "Medication not added",
-    "Medication added successfully": "Medication added successfully"
+    "Medication added successfully": "Medication added successfully",
+    "No Medications": "No Medications"
   },
   "Cancer Photos": {
     "Cancer Photos": "Cancer Photos",
     "Confidence Score": "Confidence Score",
-    "Cancer": "Cancer"
+    "Cancer": "Cancer",
+    "Classification": "Classification",
+    "No Cancer Photos": "No Cancer Photos"
   },
   "Contact us": {
     "Contact us": "Contact us",
@@ -125,7 +147,10 @@
     "Selected Day": "Selected Day",
     "Start Time": "Start Time",
     "End Time": "End Time",
-    "Save": "Save"
+    "Save": "Save",
+    "Error in adding availability": "Error in adding availability",
+    "Availability added successfully": "Availability added successfully",
+    "Selected Times": "Selected Times"
   },
   "Patients": {
     "Patients": "Patients",
@@ -145,5 +170,38 @@
     "update data": "update data",
     "Save Photo": "حفظ الصورة",
     "Cancel": "الغاء"
+  },
+  "forget-password": {
+    "Back to login": "Back to login",
+    "description": "Don't worry, happens to all of us. Enter your email below to recover your password",
+    "Email": "Email",
+    "Send": "Send",
+    "Forgot your password?": "Forgot your password?",
+    "Email is required": "Email is required",
+    "Error in sending code": "Error in sending code",
+    "Code sent successfully": "Code sent successfully"
+  },
+  "verify-code": {
+    "Back to login": "Back to login",
+    "description": "An authentication code has been sent to your email.",
+    "password": "password",
+    "Send": "Send",
+    "Verify code": "Verify code",
+    "code": "code",
+    "code must be 6 digits": "code must be 6 digits",
+    "code is required": "code is required",
+    "Code is incorrect": "Code is incorrect",
+    "Code is correct": "Code is correct"
+  },
+  "set-password": {
+    "Back to login": "Back to login",
+    "description": "Your previous password has been reseted. Please set a new password for your account.",
+    "Set password": "Set password",
+    "Send": "Send",
+    "Create Password": "Create Password",
+    "Re-enter Password": "Re-enter Password",
+    "Password set successfully": "Password set successfully",
+    "Password not set": "Password not set",
+    "Code is correct": "Code is correct"
   }
 }

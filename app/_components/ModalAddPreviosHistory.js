@@ -8,8 +8,10 @@ import { IoMdAdd } from "react-icons/io";
 import { sendHistory } from "../_lib/actions";
 import Input from "./Input";
 import Modal from "./Modal";
+import { useLocale } from "next-intl";
 
 function ModalAddPreviosHistory({ docID, patientID }) {
+  const local = useLocale();
   const [isSending, setIsSending] = useState(false);
 
   const {
@@ -36,10 +38,18 @@ function ModalAddPreviosHistory({ docID, patientID }) {
     reset();
   };
   return (
-    <div className="absolute left-0 bottom-0 w-full">
+    <div
+      className={`absolute ${
+        local === "en" ? "left-5" : "right-5"
+      } bottom-0 w-full`}
+    >
       <Modal>
         <Modal.Open opens={"addPreviosHistory"}>
-          <button className="fixed right-6 bottom-6 bg-second-main text-5xl text-white p-2   flex justify-center items-center rounded-full">
+          <button
+            className={`fixed ${
+              local == "ar" ? "left-6" : "right-6"
+            }  bottom-6 bg-second-main text-5xl text-white p-2   flex justify-center items-center rounded-full`}
+          >
             <IoMdAdd />
           </button>
         </Modal.Open>

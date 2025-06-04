@@ -14,16 +14,12 @@ async function DoctorHome({ user }) {
           ? t("Good Morning")
           : t("Good Evening")}{" "}
         <span className="text-4xl font-bold block">
-          Dr. {user.first_name} {user.last_name}
+          Dr. {user.doc_last_name} {user.doc_last_name}
         </span>{" "}
       </h2>
       <div className="grid  grid-cols-1 sm:grid-rows-1 lg:grid-cols-2 gap-8 flex-1  ">
         <DoctorInfo
-          image={
-            user.profile_picture
-              ? `${process.env.APi_URL}${user.profile_picture}`
-              : ""
-          }
+          image={user.doc_img ? `${process.env.APi_URL}${user.doc_img}` : ""}
         />
         <AvailabilityDoctorTime docID={user.id} />
         <DoctorSelectedAvailabilities docID={user.id} />

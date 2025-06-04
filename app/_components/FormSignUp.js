@@ -3,7 +3,7 @@
 import Input from "@/app/_components/Input";
 import { motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -14,9 +14,12 @@ import FormRow from "./FormRow";
 import ImageInput from "./ImageInput";
 import { useTranslations } from "next-intl";
 import Spinner from "./Spinner";
+import SelectedGender from "./SelectedGender";
+import { Link } from "@/i18n/navigation";
+import NavLogo from "./NavLogo";
 
 function FormSignUp() {
-  const t = useTranslations("from");
+  const t = useTranslations("form");
   const { register, handleSubmit, formState, setValue, getValues } = useForm();
   const { errors } = formState;
   const [image, setImage] = useState(null);
@@ -37,12 +40,15 @@ function FormSignUp() {
 
     try {
       await addUser(userData);
-      toast.success("the user is added");
+      toast.success(t("the user is added"));
       setIsSubmitting(false);
     } catch (e) {
       setIsSubmitting(false);
-      console.log(e);
-      toast.error("cant add user");
+      if (!e.toString().includes("Error: NEXT_REDIRECT")) {
+        toast.error(t("could not add the user"));
+      } else {
+        toast.success(t("the user is added"));
+      }
     }
   }
   return (
@@ -51,9 +57,10 @@ function FormSignUp() {
       animate={{ translateY: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       onSubmit={handleSubmit(submit)}
-      className="bg-white  px-5 py-7 rounded-3xl w-full md:w-2/5 space-y-6"
+      className="bg-white   px-5 py-7 rounded-3xl w-full md:w-3/5 sm:w-4/5 space-y-3"
     >
-      <div className="text-center space-y-3">
+      <div className="text-center space-y-2">
+        <NavLogo size={"size-24"} />
         <h2 className="text-4xl font-medium">{t("complete the form")}</h2>
         <p>
           {t("Already have an account")}?{" "}
@@ -81,19 +88,6 @@ function FormSignUp() {
           error={errors?.last_name?.message ?? null}
           disabled={isSubmitting}
         />
-        <Input
-          register={register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: "Invalid email format",
-            },
-          })}
-          label={t("your email")}
-          type="text"
-          error={errors?.email?.message ?? null}
-          disabled={isSubmitting}
-        />
       </FormRow>
       <FormRow>
         <Input
@@ -111,12 +105,28 @@ function FormSignUp() {
           disabled={isSubmitting}
         />
         <Input
+          register={register("chronic_disease")}
           name={"chronic_disease"}
           label={t("Choronic disease")}
           disabled={isSubmitting}
         />
       </FormRow>
-
+      <FormRow>
+        <Input
+          register={register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Invalid email format",
+            },
+          })}
+          label={t("your email")}
+          type="text"
+          error={errors?.email?.message ?? null}
+          disabled={isSubmitting}
+        />
+        <SelectedGender label={t("gender")} register={register("gender")} />
+      </FormRow>
       <FormRow>
         <Input
           register={register("phone", { required: "Phone is required" })}

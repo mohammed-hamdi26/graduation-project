@@ -12,6 +12,7 @@
     "@date-fns/tz": "^1.2.0",
     "@emailjs/browser": "^4.4.1",
     "@nextui-org/spinner": "^2.0.34",
+    "antd": "^5.24.8",
     "axios": "^1.7.8",
     "date-fns": "^4.1.0",
     "jose": "^5.9.6",

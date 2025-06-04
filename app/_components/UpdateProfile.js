@@ -23,7 +23,7 @@ function UpdateProfile({ user }) {
       password: user.password,
       id: user.id,
     };
-    console.log(updatedData);
+
     try {
       setDisabled(true);
       const res = await editUser(updatedData);
@@ -41,15 +41,15 @@ function UpdateProfile({ user }) {
         <UpadteFormInput
           disabled={disabled}
           label={t("First name")}
-          value={user.first_name}
-          register={register("first_name")}
+          value={user.staff ? user.doc_first_name : user.first_name}
+          register={register(user.staff ? "doc_first_name" : "first_name")}
         />
 
         <UpadteFormInput
           disabled={disabled}
           label={t("Last name")}
-          value={user.last_name}
-          register={register("last_name")}
+          value={user.staff ? user.doc_last_name : user.last_name}
+          register={register(user.staff ? "doc_last_name" : "last_name")}
         />
       </FormRow>
       <FormRow>

@@ -12,7 +12,7 @@ function MedicationItem({ medication }) {
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
-      className="relative h-44 flex items-end p-4 rounded-md overflow-hidden"
+      className="relative h-44 flex items-end p-4 rounded-md overflow-hidden z-10"
     >
       <MdOutlineWatchLater className="absolute top-1 left-1 z-30 text-white w-10 h-10" />
       <div className="absolute w-full h-full top-0 left-0 bg-black bg-opacity-50 z-20"></div>

@@ -79,7 +79,7 @@ function Calender({ availability, docID, userID, bookedAppointments }) {
                   selectedDay === getDateWithOutTime(day) && "text-white"
                 }
                 day={getDate(day)}
-                dayOfWeak={format(day, "EEE")}
+                dayOfWeak={t(format(day, "EEE"))}
               />
             </SwiperSlide>
           ))}

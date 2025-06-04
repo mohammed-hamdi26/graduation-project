@@ -1,10 +1,15 @@
 import { SyncLoader } from "react-spinners";
-
-function Spinner() {
+import { LoadingOutlined } from "@ant-design/icons";
+import { Flex, Spin } from "antd";
+function Spinner({ color = "#fff", size = 60 }) {
   return (
-    <div>
-      <SyncLoader color="#fff " />
-    </div>
+    <Flex align="center" justify="center" gap="middle">
+      <Spin
+        indicator={
+          <LoadingOutlined style={{ fontSize: size, color: color }} spin />
+        }
+      />
+    </Flex>
   );
 }
 

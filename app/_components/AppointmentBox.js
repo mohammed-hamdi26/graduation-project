@@ -1,6 +1,6 @@
 import { getHours } from "date-fns";
 
-function AppointmentBox({ appointment, onSelect, isSelected }) {
+function AppointmentBox({ appointment, onSelect, isSelected, t }) {
   return (
     <div
       onClick={onSelect}
@@ -11,8 +11,8 @@ function AppointmentBox({ appointment, onSelect, isSelected }) {
       {getHours(appointment) === 0
         ? "12: 00 am"
         : getHours(appointment) > 12
-        ? `${getHours(appointment) - 12} : 00 pm`
-        : `${getHours(appointment)}:00 am`}{" "}
+        ? `${getHours(appointment) - 12} : 00 ${t("pm")}`
+        : `${getHours(appointment)}:00 ${t("am")}`}{" "}
     </div>
   );
 }

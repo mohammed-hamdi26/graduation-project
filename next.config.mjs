@@ -5,7 +5,13 @@ const withNextIntl = createNextIntPlugin();
 
 const nextConfig = {
   // Optional: detects from browser
-
+  reactStrictMode: false,
+  experimental: {
+    serverActions: false,
+  },
+  devIndicators: {
+    buildActivity: false,
+  },
   async redirects() {
     return [
       // Basic redirect

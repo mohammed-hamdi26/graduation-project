@@ -14,8 +14,13 @@ export default async function page() {
       </h2>
       <div className=" space-y-4 divide-y-2  divide-gray-300 py-4">
         <ProfileImage
+          user={user}
           image={
-            user.profile_picture
+            user.staff
+              ? user.doc_img
+                ? `${process.env.APi_URL}${user.doc_img}`
+                : ""
+              : user.profile_picture
               ? `${process.env.APi_URL}${user.profile_picture}`
               : ""
           }

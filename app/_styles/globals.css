@@ -23,3 +23,12 @@
 /* ::-webkit-scrollbar-thumb:hover {
   background: #a9e5bb;
 } */
+
+.ant-picker-ok {
+  button {
+    background-color: #432c81;
+  }
+}
+[id^="vercel-overlay"] {
+  display: none !important;
+}

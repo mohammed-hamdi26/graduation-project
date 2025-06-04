@@ -24,54 +24,54 @@ function NavBar({ children, user }) {
     {
       name: "home",
       href: `/${local}/dashboard/home`,
-      icon: <HiOutlineHome className="h-6 w-6" />,
+      icon: <HiOutlineHome className="h-7 w-7" />,
       typePath: "both",
     },
     {
       name: "doctors",
       href: `/${local}/dashboard/doctors`,
-      icon: <FaUserDoctor className="h-6 w-6" />,
+      icon: <FaUserDoctor className="h-7 w-7" />,
       typePath: "patient",
     },
     {
       name: "patients",
-      href: `/${local}//dashboard/patients`,
-      icon: <FaRegUser className="h-6 w-6" />,
+      href: `/${local}/dashboard/patients`,
+      icon: <FaRegUser className="h-7 w-7" />,
       typePath: "doctor",
     },
     {
       name: "medical history",
       href: `/${local}/dashboard/medical-history`,
-      icon: <FaHistory className="h-6 w-6" />,
+      icon: <FaHistory className="h-7 w-7" />,
       typePath: "patient",
     },
     {
       name: "check yourself",
       href: `/${local}/dashboard/check-yourself`,
-      icon: <FaUserCheck className="h-6 w-6" />,
+      icon: <FaUserCheck className="h-7 w-7" />,
       typePath: "both",
     },
     {
       name: "result",
       href: `/${local}/dashboard/result`,
-      icon: <IoDocumentTextOutline className="h-6 w-6" />,
+      icon: <IoDocumentTextOutline className="h-7 w-7" />,
     },
     {
       name: "Medication reminder",
       href: `/${local}/dashboard/medication-reminder `,
-      icon: <IoMdAlarm className="h-6 w-6" />,
+      icon: <IoMdAlarm className="h-7 w-7" />,
       typePath: "patient",
     },
     {
       name: "cancer-photos",
       href: `/${local}/dashboard/cancer-photos`,
-      icon: <IoMdPhotos className="h-6 w-6" />,
+      icon: <IoMdPhotos className="h-7 w-7" />,
       typePath: "both",
     },
     {
       name: "contact us",
       href: `/${local}/dashboard/contact-us`,
-      icon: <FaPhone className="h-6 w-6" />,
+      icon: <FaPhone className="h-7 w-7" />,
       typePath: "both",
     },
   ];
@@ -109,10 +109,10 @@ function NavBar({ children, user }) {
     <motion.nav
       variants={navVariants}
       animate={isNavOpen ? "open" : "closed"}
-      className={`relative  h-full bg-white  space-y-4 transition flex flex-col  `}
+      className={`relative  h-full bg-white   transition flex flex-col     `}
     >
       <NavLogo />
-      <ul className="space-y-2 flex-1  px-4">
+      <ul className="space-y-4 flex-1    ">
         {filteredNavLinks.map((link) => (
           <NavItem
             t={t}
@@ -125,7 +125,7 @@ function NavBar({ children, user }) {
       </ul>
       <Link href={`/${local}/dashboard/profile`}>{children}</Link>
       <button
-        className={`absolute hidden top-0 ${
+        className={`absolute hidden top-2 ${
           local === "ar" ? "-left-[15px]" : "-right-[15px]"
         }  bg-second-main text-white  rounded-full w-7 h-7 md:flex justify-center items-center z-10`}
         onClick={() => {

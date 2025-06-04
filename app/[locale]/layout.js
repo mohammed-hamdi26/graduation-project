@@ -1,4 +1,4 @@
-import { Poppins } from "next/font/google";
+import { Poppins, Cairo } from "next/font/google";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -6,6 +6,11 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const cairo = Cairo({
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["arabic", "latin"],
+  display: "swap",
+});
 import "@/app/_styles/globals.css";
 import { Toaster } from "react-hot-toast";
 import { PredictProvider } from "../_context/predictContext";
@@ -41,9 +46,11 @@ export default async function RootLayout({ children, params }) {
           suppressHydrationWarning={false}
           data-new-gr-c-s-check-loaded="14.1226.0"
           data-gr-ext-installed=""
-          className="vsc-initialized"
+          className={`vsc-initialized ${
+            locale === "en" ? poppins.className : cairo.className
+          } bg-background`} // ${poppinsClass}
         >
-          <Toaster position="bottom-right" />
+          <Toaster position="top-center" />
           <div className="flex flex-col h-dvh">
             <PredictProvider>
               <main className="flex-1 h-full  ">{children}</main>

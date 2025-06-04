@@ -15,17 +15,14 @@ function ContactForm({ user }) {
     reset,
     formState: { errors, isSubmitting },
   } = useForm();
-  console.log(isSubmitting);
-  async function submit(data) {
-    console.log(data);
 
+  async function submit(data) {
     const emailData = {
       from_name: data.name,
       from_email: user.email,
       to_name: "admin",
       message: data.message,
     };
-    console.log(emailData);
 
     try {
       const res = await emailjs.send(
@@ -34,7 +31,7 @@ function ContactForm({ user }) {
         emailData,
         "4khdsJtO7nqJgo7fR"
       );
-      console.log(res);
+
       toast.success("Email sent successfully!");
       reset();
     } catch (error) {

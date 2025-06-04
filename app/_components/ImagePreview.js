@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { checkModel } from "../_lib/actions";
 import { useTranslations } from "next-intl";
+import { getTypeCancer } from "../_lib/helps";
 
 function ImagePreview({ children, savePredict, user }) {
   const [image, setImage] = useState(null);
@@ -40,7 +41,7 @@ function ImagePreview({ children, savePredict, user }) {
       if (savePredict)
         savePredict({
           cancer_percentage: predict.confidence.toFixed(2),
-          cancer_type: predict?.prediction,
+          cancer_type: getTypeCancer(predict?.prediction),
           cancer_photo: image,
         });
       setIsSubmitting(false);
@@ -58,7 +59,7 @@ function ImagePreview({ children, savePredict, user }) {
 
   return (
     <div className="flex flex-col  flex-1 space-y-4">
-      <div class="flex justify-center items-center  w-full">
+      <div className="flex justify-center items-center  w-full">
         {image && isImageChecked ? (
           <div className="flex flex-col items-center space-y-4">
             <ResultModal
@@ -72,6 +73,7 @@ function ImagePreview({ children, savePredict, user }) {
                 setIsImageChecked(false);
                 setImage(null);
               }}
+              classification={predict?.classification}
             />
             {predict?.prediction == "Colon benign" ||
             predict?.prediction == "Lung benign tissue" ||
